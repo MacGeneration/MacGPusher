@@ -14,9 +14,10 @@
  * @param certsPath [in] : Path of the directory containing the certs
  * @param certFile [in] : Path of the certificate file
  * @param keyFile [in] : Path of the private key file
+ * @param keyPassword [in] : Password for the private key, pass an empty string in there is none
  * @param sandbox [in] : Sandbox env
  */
-MMGAPNSConnection::MMGAPNSConnection(const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const bool sandbox) : MMGSSLConnection((sandbox) ? MMG_APNS_SERVER_SANDBOX : MMG_APNS_SERVER, MMG_APNS_PORT, certsPath, certFile, keyFile)
+MMGAPNSConnection::MMGAPNSConnection(const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword, const bool sandbox) : MMGSSLConnection((sandbox) ? MMG_APNS_SERVER_SANDBOX : MMG_APNS_SERVER, MMG_APNS_PORT, certsPath, certFile, keyFile, keyPassword)
 {
 	_sandbox = sandbox;
 }

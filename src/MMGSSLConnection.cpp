@@ -16,14 +16,16 @@
  * @param certsPath [in] : Path of the directory containing the certs
  * @param certFile [in] : Path of the certificate file
  * @param keyFile [in] : Path of the private key file
+ * @param keyPassword [in] : Password for the private key, pass an empty string in there is none
  */
-MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned short port, const std::string& certsPath, const std::string& certFile, const std::string& keyFile)
+MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned short port, const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword)
 {
 	this->_hostname = hostname;
 	this->_port = port;
 	this->_certsPath = certsPath;
 	this->_certFile = certFile;
 	this->_keyFile = keyFile;
+	this->_keyPassword = keyPassword;
 	this->_socket = -1;
 	this->_hostent = NULL;
 	this->_sslCtx = NULL;
@@ -59,14 +61,6 @@ const MMGConnectionError MMGSSLConnection::OpenConnection(void)
 		return MMGConnectionError::MMGSSLContextCreateFail;
 	}
 
-	// Load the CA
-	if (SSL_CTX_load_verify_locations(this->_sslCtx, NULL, this->_certsPath.c_str()) <= 0)
-	{
-        MMG_ERRLOG("[!] Failed to set CA location...\n");
-        ERR_print_errors_fp(stderr);
-		return MMGConnectionError::MMGSSLInvalidCALocation;
-	}
-
 	// Load the client certificate into the SSL context
 	if (SSL_CTX_use_certificate_file(this->_sslCtx, this->_certFile.c_str(), SSL_FILETYPE_PEM) <= 0)
 	{
@@ -76,11 +70,21 @@ const MMGConnectionError MMGSSLConnection::OpenConnection(void)
 	}
 
     // Load the private-key corresponding to the client certificate
+	if (!this->_keyPassword.empty())
+		SSL_CTX_set_default_passwd_cb_userdata(this->_sslCtx, (void*)this->_keyPassword.c_str());
 	if (SSL_CTX_use_PrivateKey_file(this->_sslCtx, this->_keyFile.c_str(), SSL_FILETYPE_PEM) <= 0)
 	{
 		MMG_ERRLOG("[!] Cannot use private key file <%s>\n", this->_keyFile.c_str());
 		ERR_print_errors_fp(stderr);
 		return MMGConnectionError::MMGSSLInvalidPrivateKeyFile;
+	}
+
+	// Load the CA
+	if (SSL_CTX_load_verify_locations(this->_sslCtx, NULL, this->_certsPath.c_str()) <= 0)
+	{
+        MMG_ERRLOG("[!] Failed to set CA location...\n");
+        ERR_print_errors_fp(stderr);
+		return MMGConnectionError::MMGSSLInvalidCALocation;
 	}
 
 	// Check if the client certificate and private-key matches

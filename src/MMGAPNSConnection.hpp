@@ -14,7 +14,7 @@ private:
 
 public:
 	/* Ctors/Dtors */
-	MMGAPNSConnection(const std::string&, const std::string&, const std::string&, const bool);
+	MMGAPNSConnection(const std::string&, const std::string&, const std::string&, const std::string&, const bool);
 	~MMGAPNSConnection(void) {}
 	/// Send a payload to a device
 	const bool SendPayloadToDevice(MMGPayload&, const MMGDevice&);

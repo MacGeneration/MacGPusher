@@ -38,6 +38,7 @@ private:
 	std::string _certsPath;
 	std::string _certFile;
 	std::string _keyFile;
+	std::string _keyPassword;
 	unsigned short _port;
 	/* Socket stuff */
 	int _socket;
@@ -52,7 +53,7 @@ private:
 
 public:
 	/* Ctors/Dtors */
-	MMGSSLConnection(const std::string&, const unsigned short, const std::string&, const std::string&, const std::string&);
+	MMGSSLConnection(const std::string&, const unsigned short, const std::string&, const std::string&, const std::string&, const std::string&);
 	~MMGSSLConnection(void);
 	/* Communication stuff */
 	const bool IsConnected(void)const {return ((this->_socket != -1) && (this->_ssl != NULL) && (this->_sslCtx != NULL));}
