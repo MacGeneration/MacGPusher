@@ -1,0 +1,312 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1EC7B3F317772592007D80A2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3E817772582007D80A2 /* main.cpp */; };
+		1EC7B3F417772592007D80A2 /* MMGAPNSConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3E917772582007D80A2 /* MMGAPNSConnection.cpp */; };
+		1EC7B3F517772592007D80A2 /* MMGDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3EB17772582007D80A2 /* MMGDevice.cpp */; };
+		1EC7B3F617772592007D80A2 /* MMGPayload.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3ED17772582007D80A2 /* MMGPayload.cpp */; };
+		1EC7B3F717772592007D80A2 /* MMGSSLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3EF17772582007D80A2 /* MMGSSLConnection.cpp */; };
+		1EC7B3F817772592007D80A2 /* MMGTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3F117772582007D80A2 /* MMGTools.cpp */; };
+		1EC7B3FA177725A2007D80A2 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC7B3F9177725A2007D80A2 /* libcrypto.dylib */; };
+		1EC7B3FC177725A6007D80A2 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC7B3FB177725A6007D80A2 /* libssl.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1EC7B3D8177721FF007D80A2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1EC7B3DA177721FF007D80A2 /* MacGPusher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacGPusher; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EC7B3E717772582007D80A2 /* global.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = global.hpp; sourceTree = "<group>"; };
+		1EC7B3E817772582007D80A2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		1EC7B3E917772582007D80A2 /* MMGAPNSConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MMGAPNSConnection.cpp; sourceTree = "<group>"; };
+		1EC7B3EA17772582007D80A2 /* MMGAPNSConnection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MMGAPNSConnection.hpp; sourceTree = "<group>"; };
+		1EC7B3EB17772582007D80A2 /* MMGDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MMGDevice.cpp; sourceTree = "<group>"; };
+		1EC7B3EC17772582007D80A2 /* MMGDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MMGDevice.hpp; sourceTree = "<group>"; };
+		1EC7B3ED17772582007D80A2 /* MMGPayload.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MMGPayload.cpp; sourceTree = "<group>"; };
+		1EC7B3EE17772582007D80A2 /* MMGPayload.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MMGPayload.hpp; sourceTree = "<group>"; };
+		1EC7B3EF17772582007D80A2 /* MMGSSLConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MMGSSLConnection.cpp; sourceTree = "<group>"; };
+		1EC7B3F017772582007D80A2 /* MMGSSLConnection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MMGSSLConnection.hpp; sourceTree = "<group>"; };
+		1EC7B3F117772582007D80A2 /* MMGTools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MMGTools.cpp; sourceTree = "<group>"; };
+		1EC7B3F217772582007D80A2 /* MMGTools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MMGTools.hpp; sourceTree = "<group>"; };
+		1EC7B3F9177725A2007D80A2 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		1EC7B3FB177725A6007D80A2 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1EC7B3D7177721FF007D80A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EC7B3FC177725A6007D80A2 /* libssl.dylib in Frameworks */,
+				1EC7B3FA177725A2007D80A2 /* libcrypto.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1EC7B3D1177721FF007D80A2 = {
+			isa = PBXGroup;
+			children = (
+				1EC7B3E617772582007D80A2 /* src */,
+				1EC7B3FD177725AD007D80A2 /* libs */,
+				1EC7B3DB177721FF007D80A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1EC7B3DB177721FF007D80A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1EC7B3DA177721FF007D80A2 /* MacGPusher */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1EC7B3E617772582007D80A2 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1EC7B3E717772582007D80A2 /* global.hpp */,
+				1EC7B3E817772582007D80A2 /* main.cpp */,
+				1EC7B3E917772582007D80A2 /* MMGAPNSConnection.cpp */,
+				1EC7B3EA17772582007D80A2 /* MMGAPNSConnection.hpp */,
+				1EC7B3EB17772582007D80A2 /* MMGDevice.cpp */,
+				1EC7B3EC17772582007D80A2 /* MMGDevice.hpp */,
+				1EC7B3ED17772582007D80A2 /* MMGPayload.cpp */,
+				1EC7B3EE17772582007D80A2 /* MMGPayload.hpp */,
+				1EC7B3EF17772582007D80A2 /* MMGSSLConnection.cpp */,
+				1EC7B3F017772582007D80A2 /* MMGSSLConnection.hpp */,
+				1EC7B3F117772582007D80A2 /* MMGTools.cpp */,
+				1EC7B3F217772582007D80A2 /* MMGTools.hpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1EC7B3FD177725AD007D80A2 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				1EC7B3FB177725A6007D80A2 /* libssl.dylib */,
+				1EC7B3F9177725A2007D80A2 /* libcrypto.dylib */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1EC7B3D9177721FF007D80A2 /* MacGPusher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1EC7B3E3177721FF007D80A2 /* Build configuration list for PBXNativeTarget "MacGPusher" */;
+			buildPhases = (
+				1EC7B3D6177721FF007D80A2 /* Sources */,
+				1EC7B3D7177721FF007D80A2 /* Frameworks */,
+				1EC7B3D8177721FF007D80A2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacGPusher;
+			productName = MacGPusher;
+			productReference = 1EC7B3DA177721FF007D80A2 /* MacGPusher */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1EC7B3D2177721FF007D80A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = MacGeneration;
+			};
+			buildConfigurationList = 1EC7B3D5177721FF007D80A2 /* Build configuration list for PBXProject "MacGPusher" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1EC7B3D1177721FF007D80A2;
+			productRefGroup = 1EC7B3DB177721FF007D80A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1EC7B3D9177721FF007D80A2 /* MacGPusher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1EC7B3D6177721FF007D80A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EC7B3F317772592007D80A2 /* main.cpp in Sources */,
+				1EC7B3F417772592007D80A2 /* MMGAPNSConnection.cpp in Sources */,
+				1EC7B3F517772592007D80A2 /* MMGDevice.cpp in Sources */,
+				1EC7B3F617772592007D80A2 /* MMGPayload.cpp in Sources */,
+				1EC7B3F717772592007D80A2 /* MMGSSLConnection.cpp in Sources */,
+				1EC7B3F817772592007D80A2 /* MMGTools.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1EC7B3E1177721FF007D80A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1EC7B3E2177721FF007D80A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1EC7B3E4177721FF007D80A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+			};
+			name = Debug;
+		};
+		1EC7B3E5177721FF007D80A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1EC7B3D5177721FF007D80A2 /* Build configuration list for PBXProject "MacGPusher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EC7B3E1177721FF007D80A2 /* Debug */,
+				1EC7B3E2177721FF007D80A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1EC7B3E3177721FF007D80A2 /* Build configuration list for PBXNativeTarget "MacGPusher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EC7B3E4177721FF007D80A2 /* Debug */,
+				1EC7B3E5177721FF007D80A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1EC7B3D2177721FF007D80A2 /* Project object */;
+}
