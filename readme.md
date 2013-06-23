@@ -14,9 +14,15 @@ Just open *MacGPusher.xcodeproj* and click the build button.
 
 #### Linux: ####
 
-You need a compiler that supports C++11, **libssl** and **libcrypto**. Building is easy as :
+You need a compiler that supports C++11, and to link to **libssl** and **libcrypto**.
+
+*gcc:*
 
 	g++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
+
+*clang:*
+
+	clang++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
 
 
 ## Usage ##
