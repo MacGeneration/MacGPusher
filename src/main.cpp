@@ -29,16 +29,27 @@
 #include "MMGAPNSConnection.hpp"
 #include "MMGDevice.hpp"
 #include "MMGPayload.hpp"
+#include <vector>
 
+
+const size_t get_devices_list(std::vector<MMGDevice*>& vec);
+const size_t get_devices_list(std::vector<MMGDevice*>& vec)
+{
+	// Implement your code logic to grab a list of devices
+	const unsigned int badge = 1;
+	MMGDevice* device = new MMGDevice("token", badge);
+	vec.push_back(device);
+	return vec.size();
+}
 
 int main(int argc, const char* argv[])
 {
-	// Create a device object
-	const unsigned int badge = 1;
-	MMGDevice device("device-token", badge);
+	// Get a list of devices
+	std::vector<MMGDevice*> devices;
+	get_devices_list(devices);
 
 	// Create a payload object
-	MMGPayload payload("Push message", device.GetBadge(), "sound.caf", "Slider label");
+	MMGPayload payload("Push message", 1, "sound.caf", "Slider label");
 
 	// Create the APNS connection, empty string if no password for the private key
 	MMGAPNSConnection connection(MMG_APNS_CA_PATH, MMG_APNS_CERT_PATH, MMG_APNS_PRIVATEKEY_PATH, "private-key-password", true);
@@ -47,7 +58,17 @@ int main(int argc, const char* argv[])
 		return -1;
 
 	// Send the payload
-	connection.SendPayloadToDevice(payload, device);
+	for (MMGDevice* device : devices)
+	{
+		// Update payload badge number to reflect device's one
+		payload.SetBadgeNumber(device->GetBadge());
+		// Send payload to the device
+		connection.SendPayloadToDevice(payload, *device);
+	}
+	
+	// Free up memory
+	for (MMGDevice* device : devices)
+		delete device;
 
 	// Close the connection
 	connection.CloseConnection();

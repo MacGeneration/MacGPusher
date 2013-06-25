@@ -82,16 +82,16 @@
 			children = (
 				1EC7B3E717772582007D80A2 /* global.hpp */,
 				1EC7B3E817772582007D80A2 /* main.cpp */,
-				1EC7B3E917772582007D80A2 /* MMGAPNSConnection.cpp */,
-				1EC7B3EA17772582007D80A2 /* MMGAPNSConnection.hpp */,
-				1EC7B3EB17772582007D80A2 /* MMGDevice.cpp */,
-				1EC7B3EC17772582007D80A2 /* MMGDevice.hpp */,
-				1EC7B3ED17772582007D80A2 /* MMGPayload.cpp */,
-				1EC7B3EE17772582007D80A2 /* MMGPayload.hpp */,
-				1EC7B3EF17772582007D80A2 /* MMGSSLConnection.cpp */,
 				1EC7B3F017772582007D80A2 /* MMGSSLConnection.hpp */,
-				1EC7B3F117772582007D80A2 /* MMGTools.cpp */,
+				1EC7B3EF17772582007D80A2 /* MMGSSLConnection.cpp */,
+				1EC7B3EA17772582007D80A2 /* MMGAPNSConnection.hpp */,
+				1EC7B3E917772582007D80A2 /* MMGAPNSConnection.cpp */,
+				1EC7B3EC17772582007D80A2 /* MMGDevice.hpp */,
+				1EC7B3EB17772582007D80A2 /* MMGDevice.cpp */,
+				1EC7B3EE17772582007D80A2 /* MMGPayload.hpp */,
+				1EC7B3ED17772582007D80A2 /* MMGPayload.cpp */,
 				1EC7B3F217772582007D80A2 /* MMGTools.hpp */,
+				1EC7B3F117772582007D80A2 /* MMGTools.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -305,6 +305,7 @@
 				1EC7B3E5177721FF007D80A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
