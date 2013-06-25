@@ -61,37 +61,93 @@ enum class MMGConnectionError : unsigned short
 class MMGSSLConnection
 {
 private:
+	/// Hostname or IP of the server to connect
 	std::string _hostname;
-	std::string _certsPath;
-	std::string _certFile;
-	std::string _keyFile;
-	std::string _keyPassword;
+	/// Server port
 	unsigned short _port;
-	/* Socket stuff */
+	/// Certificates & keys directory path
+	std::string _certsPath;
+	/// Certificate path
+	std::string _certFile;
+	/// Private key path
+	std::string _keyFile;
+	/// Private key password
+	std::string _keyPassword;
+	/// Socket
 	int _socket;
+	/// sockaddr_in
 	struct sockaddr_in _addr;
+	/// Host info
 	struct hostent* _hostent;
-	/* SSL stuff */
+	/// SSL context
 	SSL_CTX* _sslCtx;
+	/// SSL struct
 	SSL* _ssl;
+	/// SSL method
 	SSL_METHOD* _sslMethod;
+	/// Server certificate
 	X509* _serverCert;
+	/// Private key
 	EVP_PKEY* _privateKey;
 
 public:
-	/* Ctors/Dtors */
-	MMGSSLConnection(const std::string&, const unsigned short, const std::string&, const std::string&, const std::string&, const std::string&);
+	/**
+	 * @brief Initialize
+	 * @param hostname [in] : Hostname or ip address of the server
+	 * @param port [in] : Server port
+	 * @param certsPath [in] : Path of the directory containing the certs
+	 * @param certFile [in] : Path of the certificate file
+	 * @param keyFile [in] : Path of the private key file
+	 * @param keyPassword [in] : Password for the private key, pass an empty string in there is none
+	 */
+	MMGSSLConnection(const std::string& hostname, const unsigned short port, const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword);
+
+	/**
+	 * @brief Destructor: Close the socket and SSL stuff
+	 */
 	~MMGSSLConnection(void);
-	/* Communication stuff */
+
+	/**
+	 * @brief Returns the connection status
+	 * @returns true if we are connected to the server, false otherwise
+	 */
 	const bool IsConnected(void)const {return ((this->_socket != -1) && (this->_ssl != NULL) && (this->_sslCtx != NULL));}
+
+	/**
+	 * @brief Connect to the server
+	 * @returns MMGConnectionError error code, see enum
+	 */
 	const MMGConnectionError OpenConnection(void);
+
+	/**
+	 * @brief Close the connection
+	 */
 	void CloseConnection(void);
-	const bool SendBuffer(const unsigned char*, const size_t);
-	/* Setters */
+
+	/**
+	 * @brief Send a buffer to the server
+	 * @param buffer [in] : Buffer to send
+	 * @param size [in] : Size of the buffer
+	 * @returns true if OK
+	 */
+	const bool SendBuffer(const unsigned char* buffer, const size_t size);
+
+	/**
+	 * @brief Set hostname or IP address of the server
+	 * @param hostname [in] : Hostname or IP address
+	 */
 	void SetHostname(const std::string& hostname) {this->_hostname = hostname;}
+
+	/**
+	 * @brief Set the port of the server
+	 * @param port [in] : Port number
+	 */
 	void SetPort(const unsigned short port) {this->_port = port;}
+
 private:
-	/// Close socket and SSL
+	/**
+	 * @brief Close the socket and SSL
+	 */
 	void __CloseSocket(void);
 };
 

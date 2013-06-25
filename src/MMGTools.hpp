@@ -35,25 +35,64 @@
 class MMGTools
 {
 public:
-	/* Ctors/Dtors */
-	MMGTools(void) {}
-	~MMGTools(void) {}
-	/// Convert a std::string to an integer
-	static const int StringToInteger(const std::string&);
-	/// Convert a std::string to an unsigned integer
-	static const unsigned int StringToUnsignedInteger(const std::string&);
-	/// Convert an integer to a std::string
-	static const std::string IntegerToString(int);
-	/// Convert an unsigned integer to a std::string
-	static const std::string UnsignedIntegerToString(unsigned int);
-	/// Convert a float to a std::string
-	static const std::string FloatToString(const float);
-	/// Split a string into a vector
-	static void StringToVector(const std::string&, std::vector<std::string>&, const char*);
-	/// String replace
-	static const bool StringReplace(std::string&, const std::string&, const std::string&);
-	/// Base64 decode
-	static const std::string Base64Decode(const std::string&);
+	/**
+	 * @brief Convert a std::string to an integer
+	 * @param str [in] : String to convert
+	 * @returns the string as an integer
+	 */
+	static const int StringToInteger(const std::string& str);
+
+	/**
+	 * @brief Convert a std::string to an unsigned integer
+	 * @param str [in] : String to convert
+	 * @returns the string as an unsigned integer
+	 */
+	static const unsigned int StringToUnsignedInteger(const std::string& str);
+
+	/**
+	 * @brief Convert an integer to a std::string, Taken from : http://opensource.apple.com/source/groff/groff-10/groff/libgroff/itoa.c
+	 * @param i [in] : Integer to convert
+	 * @returns The integer as a std::string
+	 */
+	static const std::string IntegerToString(int i);
+
+	/**
+	 * @brief Convert an unsigned integer to a std::string, Taken from : http://opensource.apple.com/source/groff/groff-10/groff/libgroff/itoa.c
+	 * @param i [in] : Unsigned integer to convert
+	 * @returns The unsigned integer as a std::string
+	 */
+	static const std::string UnsignedIntegerToString(unsigned int i);
+
+	/**
+	 * @brief Convert a float to a std::string
+	 * @param f [in] : Float to convert
+	 * @returns The float as a std::string
+	 */
+	static const std::string FloatToString(const float f);
+
+	/**
+	 * @brief Split a std::string into a std::vector<std::string>
+	 * @param str [in] : String to split
+	 * @param vec [out] : Vector where to split the string
+	 * @param sep [in] : String separator
+	 */
+	static void StringToVector(const std::string& str, std::vector<std::string>& vec, const char* sep);
+
+	/**
+	 * @brief Replace a part of a std::string with another
+	 * @param str [out] : String
+	 * @param from [in] : String to search
+	 * @param to [in] : String to replace
+	 * @returns true if success, false otherwise
+	 */
+	static const bool StringReplace(std::string& str, const std::string& from, const std::string& to);
+
+	/**
+	 * @brief Decode a base64 encoded std::string
+	 * @param encoded_string [in] : Base64 encoded string
+	 * @returns decoded std::string
+	 */
+	static const std::string Base64Decode(const std::string& encoded_string);
 };
 
 #endif /* __MMGTOOLS_H__ */

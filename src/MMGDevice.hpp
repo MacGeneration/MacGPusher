@@ -35,20 +35,45 @@ class MMGDevice
 {
 private:
 	/// Device token
-	std::string _token;
+	std::string _token = "";
 	/// Badge number
-	unsigned int _badge;
+	unsigned int _badge = 0;
 
 public:
-	/* Ctors/Dtors */
-	MMGDevice(void);
-	MMGDevice(const std::string&, const unsigned int);
+	/**
+	 * @brief Initialize token and badge number
+	 * @param token [in] : Device token
+	 * @param port [in] : Badge number
+	 */
+	MMGDevice(const std::string& token, const unsigned int badge);
+
+	/**
+	 * @brief Destructor
+	 */
 	~MMGDevice(void) {}
-	/* Setters */
-	void SetToken(const std::string&);
-	void SetBadge(const unsigned int);
-	/* Getters */
+
+	/**
+	 * @brief Set device token
+	 * @param token [in] : Device token
+	 */
+	void SetToken(const std::string& token);
+
+	/**
+	 * @brief Set device badge number
+	 * @param badge [in] : Badge number
+	 */
+	void SetBadge(const unsigned int badge);
+
+	/**
+	 * @brief Get the device token
+	 * @returns Reference to the device token string
+	 */
 	const std::string& GetToken(void)const {return this->_token;}
+
+	/**
+	 * @brief Get the device badge number
+	 * @returns Badge number
+	 */
 	const unsigned int GetBadge(void)const {return this->_badge;}
 };
 

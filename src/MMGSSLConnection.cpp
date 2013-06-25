@@ -36,15 +36,6 @@
 
 
 #pragma mark - Constructor
-/**
- * @brief Initialize
- * @param hostname [in] : Hostname or ip address of the server
- * @param port [in] : Server port
- * @param certsPath [in] : Path of the directory containing the certs
- * @param certFile [in] : Path of the certificate file
- * @param keyFile [in] : Path of the private key file
- * @param keyPassword [in] : Password for the private key, pass an empty string in there is none
- */
 MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned short port, const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword)
 {
 	this->_hostname = hostname;
@@ -174,29 +165,17 @@ const MMGConnectionError MMGSSLConnection::OpenConnection(void)
 	return MMGConnectionError::MMGNoError;
 }
 
-/**
- * @brief Close the connection
- */
 void MMGSSLConnection::CloseConnection(void)
 {
 	this->__CloseSocket();
 }
 
-/**
- * @brief Send a buffer to the server
- * @param buffer [in] : Buffer to send
- * @param size [in] : Size of the buffer
- * @return true if OK
- */
 const bool MMGSSLConnection::SendBuffer(const unsigned char* buffer, const size_t size)
 {
 	return (SSL_write(this->_ssl, buffer, static_cast<int>(size)) > 0);
 }
 
 #pragma mark - Private
-/**
- * @brief Close the socket and SSL
- */
 void MMGSSLConnection::__CloseSocket(void)
 {
 	if (!this->IsConnected())

@@ -33,11 +33,6 @@
 #define INT_DIGITS 19
 
 
-/**
- * @brief Convert a std::string to an integer
- * @param str [in] : String to convert
- * @return the string as an integer
- */
 const int MMGTools::StringToInteger(const std::string& str)
 {
 #pragma clang diagnostic push
@@ -56,11 +51,6 @@ const int MMGTools::StringToInteger(const std::string& str)
 #pragma clang diagnostic pop
 }
 
-/**
- * @brief Convert a std::string to an unsigned integer
- * @param str [in] : String to convert
- * @return the string as an unsigned integer
- */
 const unsigned int MMGTools::StringToUnsignedInteger(const std::string& str)
 {
 	const char* s = str.c_str();
@@ -71,11 +61,6 @@ const unsigned int MMGTools::StringToUnsignedInteger(const std::string& str)
 	return res;
 }
 
-/**
- * @brief Convert an integer to a std::string, Taken from : http://opensource.apple.com/source/groff/groff-10/groff/libgroff/itoa.c
- * @param i [in] : Integer to convert
- * @return The integer as a std::string
- */
 const std::string MMGTools::IntegerToString(int i)
 {
 	static char buf[INT_DIGITS + 2];
@@ -101,11 +86,6 @@ const std::string MMGTools::IntegerToString(int i)
 	return std::string(p);
 }
 
-/**
- * @brief Convert an unsigned integer to a std::string, Taken from : http://opensource.apple.com/source/groff/groff-10/groff/libgroff/itoa.c
- * @param i [in] : Unsigned integer to convert
- * @return The unsigned integer as a std::string
- */
 const std::string MMGTools::UnsignedIntegerToString(unsigned int i)
 {
 	static char buf[INT_DIGITS + 2];
@@ -118,11 +98,6 @@ const std::string MMGTools::UnsignedIntegerToString(unsigned int i)
 	return std::string(p);
 }
 
-/**
- * @brief Convert a float to a std::string
- * @param f [in] : Float to convert
- * @return The float as a std::string
- */
 const std::string MMGTools::FloatToString(const float f)
 {
 	char array[32] = {0x00};
@@ -130,12 +105,6 @@ const std::string MMGTools::FloatToString(const float f)
 	return std::string(array);
 }
 
-/**
- * @brief Split a std::string into a std::vector<std::string>
- * @param str [in] : String to split
- * @param vec [out] : Vector where to split the string
- * @param sep [in] : String separator
- */
 void MMGTools::StringToVector(const std::string& str, std::vector<std::string>& vec, const char* sep)
 {
 	char* cStr = const_cast<char*>(str.c_str());
@@ -147,13 +116,6 @@ void MMGTools::StringToVector(const std::string& str, std::vector<std::string>& 
 	}
 }
 
-/**
- * @brief Replace a part of a std::string with another
- * @param str [out] : String
- * @param from [in] : String to search
- * @param to [in] : String to replace
- * @return true if success, false otherwise
- */
 const bool MMGTools::StringReplace(std::string& str, const std::string& from, const std::string& to)
 {
 	const std::string::size_type startPos = str.find(from);
@@ -163,11 +125,6 @@ const bool MMGTools::StringReplace(std::string& str, const std::string& from, co
 	return true;
 }
 
-/**
- * @brief Decode a base64 encoded std::string
- * @param encoded_string [in] : Base64 encoded string
- * @return decode std::string
- */
 const std::string MMGTools::Base64Decode(const std::string& encoded_string)
 {
 	static const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

@@ -40,11 +40,28 @@ private:
 	bool _sandbox;
 
 public:
-	/* Ctors/Dtors */
-	MMGAPNSConnection(const std::string&, const std::string&, const std::string&, const std::string&, const bool);
+	/**
+	 * @brief Initialize with APNS params
+	 * @param certsPath [in] : Path of the directory containing the certs
+	 * @param certFile [in] : Path of the certificate file
+	 * @param keyFile [in] : Path of the private key file
+	 * @param keyPassword [in] : Password for the private key, pass an empty string in there is none
+	 * @param sandbox [in] : Sandbox env
+	 */
+	MMGAPNSConnection(const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword, const bool sandbox);
+
+	/**
+	 * @brief Destructor
+	 */
 	~MMGAPNSConnection(void) {}
-	/// Send a payload to a device
-	const bool SendPayloadToDevice(MMGPayload&, const MMGDevice&);
+
+	/** 
+	 * @brief Send a payload to a given device
+	 * @param payload [in] : Payload to send
+	 * @param device [in] : Device
+	 * @returns true if send OK
+	 */
+	const bool SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device);
 };
 
 #endif /* __MMGAPNSCONNECTION_H__ */
