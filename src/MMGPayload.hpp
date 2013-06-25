@@ -93,25 +93,25 @@ public:
 	 * @brief Get a reference to the the message body
 	 * @returns Message body as a std::string
 	 */
-	const std::string& GetMessageBody(void)const {return this->_messageBody;}
+	const std::string& GetMessageBody(void)const;
 
 	/**
 	 * @brief Get the badge number
 	 * @returns Badge number
 	 */
-	const unsigned int GetBadgeNumber(void)const {return this->_badgeNumber;}
+	const unsigned int GetBadgeNumber(void)const;
 
 	/**
 	 * @brief Get a reference to the sound name
 	 * @returns Sound name as a std::string
 	 */
-	const std::string& GetSoundName(void)const {return this->_soundName;}
+	const std::string& GetSoundName(void)const;
 
 	/**
 	 * @brief Get a reference to the the action key label
 	 * @returns Action key label as a std::string
 	 */
-	const std::string& GetActionKeyLabel(void)const {return this->_actionKeyLabel;}
+	const std::string& GetActionKeyLabel(void)const;
 
 	/**
 	 * @brief Get a reference to the formatted payload, create it if needed

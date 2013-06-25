@@ -113,6 +113,26 @@ void MMGPayload::RemoveValueForKey(const std::string& key)
 }
 
 #pragma mark - Getters
+const std::string& MMGPayload::GetMessageBody(void)const
+{
+	return this->_messageBody;
+}
+
+const unsigned int MMGPayload::GetBadgeNumber(void)const
+{
+	return this->_badgeNumber;
+}
+
+const std::string& MMGPayload::GetSoundName(void)const
+{
+	return this->_soundName;
+}
+
+const std::string& MMGPayload::GetActionKeyLabel(void)const
+{
+	return this->_actionKeyLabel;
+}
+
 const std::string& MMGPayload::GetPayload(void)
 {
 	if (this->_formattedPayload.empty())
