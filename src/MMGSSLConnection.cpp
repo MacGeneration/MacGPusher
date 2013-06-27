@@ -171,7 +171,14 @@ void MMGSSLConnection::CloseConnection(void)
 
 bool MMGSSLConnection::SendBuffer(const unsigned char* buffer, const size_t size)
 {
-	return (SSL_write(this->_ssl, buffer, static_cast<int>(size)) > 0);
+	const int ret = SSL_write(this->_ssl, buffer, static_cast<int>(size));
+#ifdef MMG_DEBUG
+	if (ret <= 0)
+	{
+		ERR_print_errors_fp(stderr);
+	}
+#endif
+	return (ret > 0);
 }
 
 void MMGSSLConnection::__CloseSocket(void)
