@@ -40,14 +40,14 @@ public:
 	 * @param str [in] : String to convert
 	 * @returns the string as an integer
 	 */
-	static const int StringToInteger(const std::string& str);
+	static int StringToInteger(const std::string& str);
 
 	/**
 	 * @brief Convert a std::string to an unsigned integer
 	 * @param str [in] : String to convert
 	 * @returns the string as an unsigned integer
 	 */
-	static const unsigned int StringToUnsignedInteger(const std::string& str);
+	static unsigned int StringToUnsignedInteger(const std::string& str);
 
 	/**
 	 * @brief Convert an integer to a std::string, Taken from : http://opensource.apple.com/source/groff/groff-10/groff/libgroff/itoa.c
@@ -85,7 +85,7 @@ public:
 	 * @param to [in] : String to replace
 	 * @returns true if success, false otherwise
 	 */
-	static const bool StringReplace(std::string& str, const std::string& from, const std::string& to);
+	static bool StringReplace(std::string& str, const std::string& from, const std::string& to);
 
 	/**
 	 * @brief Decode a base64 encoded std::string

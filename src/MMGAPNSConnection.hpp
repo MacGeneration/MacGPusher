@@ -55,13 +55,13 @@ public:
 	 */
 	~MMGAPNSConnection(void) {}
 
-	/** 
+	/**
 	 * @brief Send a payload to a given device
 	 * @param payload [in] : Payload to send
 	 * @param device [in] : Device
 	 * @returns true if send OK
 	 */
-	const bool SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device);
+	bool SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device);
 };
 
 #endif /* __MMGAPNSCONNECTION_H__ */

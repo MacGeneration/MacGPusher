@@ -28,81 +28,58 @@
 #include "MMGTools.hpp"
 #include <cstdio>
 #include <cstring>
+#include <sstream>
 
 
 #define INT_DIGITS 19
 
 
-const int MMGTools::StringToInteger(const std::string& str)
+int MMGTools::StringToInteger(const std::string& str)
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-value"
-	char* s = const_cast<char*>(str.c_str());
-	int res = 0, n = 1;
-	unsigned int c;
-	if (*s == '-')
-	{
-		n = -1;
-		*s++;
-	}
-	while ((unsigned int)(c = (unsigned int)*s++ - 48) < 10u)
-		res = res * 10 + (int)c;
-	return res * n;
-#pragma clang diagnostic pop
+	std::stringstream ss(str);
+	int res = 0;
+
+	ss >> res;
+	return res;
 }
 
-const unsigned int MMGTools::StringToUnsignedInteger(const std::string& str)
+unsigned int MMGTools::StringToUnsignedInteger(const std::string& str)
 {
-	const char* s = str.c_str();
+	std::stringstream ss(str);
 	unsigned int res = 0;
-	unsigned int c;
-	while ((unsigned int)(c = (unsigned int)*s++ - 48) < 10u)
-		res = res * 10 + c;
+
+	ss >> res;
 	return res;
 }
 
 const std::string MMGTools::IntegerToString(int i)
 {
-	static char buf[INT_DIGITS + 2];
-	char* p = buf + INT_DIGITS + 1;
-	if (i >= 0)
-	{
-		do
-		{
-			*--p = 48 + (i % 10);
-			i /= 10;
-		} while (i != 0);
-		return std::string(p);
-	}
-	else
-	{
-		do
-		{
-			*--p = 48 - (i % 10);
-			i /= 10;
-		} while (i != 0);
-		*--p = '-';
-	}
-	return std::string(p);
+	std::stringstream ss;
+	std::string res;
+
+	ss << i;
+	ss >> res;
+	return res;
 }
 
 const std::string MMGTools::UnsignedIntegerToString(unsigned int i)
 {
-	static char buf[INT_DIGITS + 2];
-	char* p = buf + INT_DIGITS + 1;
-	do
-	{
-		*--p = 48 + (i % 10);
-		i /= 10;
-	} while (i != 0);
-	return std::string(p);
+	std::stringstream ss;
+	std::string res;
+
+	ss << i;
+	ss >> res;
+	return res;
 }
 
 const std::string MMGTools::FloatToString(const float f)
 {
-	char array[32] = {0x00};
-	sprintf(array, "%f", f);
-	return std::string(array);
+	std::stringstream ss;
+	std::string res;
+
+	ss << f;
+	ss >> res;
+	return res;
 }
 
 void MMGTools::StringToVector(const std::string& str, std::vector<std::string>& vec, const char* sep)
@@ -116,7 +93,7 @@ void MMGTools::StringToVector(const std::string& str, std::vector<std::string>& 
 	}
 }
 
-const bool MMGTools::StringReplace(std::string& str, const std::string& from, const std::string& to)
+bool MMGTools::StringReplace(std::string& str, const std::string& from, const std::string& to)
 {
 	const std::string::size_type startPos = str.find(from);
 	if (startPos == std::string::npos)
@@ -159,14 +136,14 @@ const std::string MMGTools::Base64Decode(const std::string& encoded_string)
 	{
 		for (j = i; j < 4; j++)
 			uchar_array_4[j] = 0;
-		
+
 		for (j = 0; j < 4; j++)
 			uchar_array_4[j] = static_cast<unsigned char>(base64_chars.find(static_cast<char>(uchar_array_4[j])));
 
 		uchar_array_3[0] = static_cast<unsigned char>((uchar_array_4[0] << 2) + ((uchar_array_4[1] & 0x30) >> 4));
 		uchar_array_3[1] = static_cast<unsigned char>(((uchar_array_4[1] & 0xf) << 4) + ((uchar_array_4[2] & 0x3c) >> 2));
 		uchar_array_3[2] = static_cast<unsigned char>(((uchar_array_4[2] & 0x3) << 6) + uchar_array_4[3]);
-		
+
 		for (j = 0; (j < i - 1); j++)
 			ret += static_cast<char>(uchar_array_3[j]);
 	}

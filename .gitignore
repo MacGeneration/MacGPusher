@@ -1,3 +1,10 @@
 /macg/
 /MacGPusher.xcodeproj/project.xcworkspace/xcuserdata/nyxouf.xcuserdatad/UserInterfaceState.xcuserstate
 /.DS_Store
+
+MacGPusher
+
+*.o
+*.d
+
+*~

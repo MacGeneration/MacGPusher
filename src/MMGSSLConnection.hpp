@@ -36,7 +36,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
- 
+
 #include <openssl/crypto.h>
 #include <openssl/ssl.h>
 
@@ -111,13 +111,16 @@ public:
 	 * @brief Returns the connection status
 	 * @returns true if we are connected to the server, false otherwise
 	 */
-	const bool IsConnected(void)const {return ((this->_socket != -1) && (this->_ssl != NULL) && (this->_sslCtx != NULL));}
+	bool IsConnected(void)const
+	{
+	  return ((this->_socket != -1) && (this->_ssl != NULL) && (this->_sslCtx != NULL));
+	}
 
 	/**
 	 * @brief Connect to the server
 	 * @returns MMGConnectionError error code, see enum
 	 */
-	const MMGConnectionError OpenConnection(void);
+	MMGConnectionError OpenConnection(void);
 
 	/**
 	 * @brief Close the connection
@@ -130,7 +133,7 @@ public:
 	 * @param size [in] : Size of the buffer
 	 * @returns true if OK
 	 */
-	const bool SendBuffer(const unsigned char* buffer, const size_t size);
+	bool SendBuffer(const unsigned char* buffer, const size_t size);
 
 	/**
 	 * @brief Set hostname or IP address of the server

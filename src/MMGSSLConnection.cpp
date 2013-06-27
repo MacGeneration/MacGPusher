@@ -31,11 +31,12 @@
 
 
 /* SSL_* calls are marked deprecated on OS X 10.7+ */
+#ifdef __APPLE__
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma gcc diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 
-#pragma mark - Constructor
 MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned short port, const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword)
 {
 	this->_hostname = hostname;
@@ -57,15 +58,13 @@ MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned s
 	SSL_load_error_strings();
 }
 
-#pragma mark - Destructor
 MMGSSLConnection::~MMGSSLConnection(void)
 {
 	// Tear down the connection
 	this->CloseConnection();
 }
 
-#pragma mark - Public
-const MMGConnectionError MMGSSLConnection::OpenConnection(void)
+MMGConnectionError MMGSSLConnection::OpenConnection(void)
 {
 	// If already connected, bye bye
 	if (this->IsConnected())
@@ -170,12 +169,11 @@ void MMGSSLConnection::CloseConnection(void)
 	this->__CloseSocket();
 }
 
-const bool MMGSSLConnection::SendBuffer(const unsigned char* buffer, const size_t size)
+bool MMGSSLConnection::SendBuffer(const unsigned char* buffer, const size_t size)
 {
 	return (SSL_write(this->_ssl, buffer, static_cast<int>(size)) > 0);
 }
 
-#pragma mark - Private
 void MMGSSLConnection::__CloseSocket(void)
 {
 	if (!this->IsConnected())
