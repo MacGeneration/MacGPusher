@@ -74,7 +74,7 @@ public:
 	 * @brief Get the device badge number
 	 * @returns Badge number
 	 */
-	const unsigned int GetBadge(void)const {return this->_badge;}
+	unsigned int GetBadge(void)const {return this->_badge;}
 };
 
 #endif /* __MMGDEVICE_H__ */
