@@ -14,7 +14,9 @@ Just open *MacGPusher.xcodeproj* and click the build button.
 
 #### Linux: ####
 
-You need a compiler that supports C++11, and to link to **libssl** and **libcrypto**.
+You need a compiler that supports C++11, and to link to **libssl** and **libcrypto**, then just run **make** (Thanks to ***lledey*** for the Makefile)
+
+If you want to build it by hand :
 
 *gcc:*
 
@@ -37,7 +39,6 @@ Fetching a list of devices is up to you. I use this project with **libmysqlclien
 ## TODO: ##
 
 - Adding support for the Feedback service.
-- A Makefile for Linux users, I don't like doing this stuff so..
 
 
 ## License ##
