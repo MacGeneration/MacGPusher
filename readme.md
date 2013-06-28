@@ -22,6 +22,8 @@ You need a compiler that supports C++11, and to link to **libssl** and **libcryp
 
 *clang:*
 
+*Some users reported problem building with clang on Debian 7.0 (see #1)*
+
 	clang++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
 
 
