@@ -25,8 +25,8 @@
 //
 
 
-#ifndef __MMGGLOBAL_H_
-#define __MMGGLOBAL_H_
+#ifndef __MMGGLOBAL_H__
+#define __MMGGLOBAL_H__
 
 
 /* DEBUG FLAG */
@@ -58,4 +58,4 @@
 #define MMG_APNS_CERT_PATH "/path/to/certs/dir/cert.pem"
 #define MMG_APNS_PRIVATEKEY_PATH "/path/to/certs/dir/key.pem"
 
-#endif /* __MMGGLOBAL_H_ */
+#endif /* __MMGGLOBAL_H__ */
