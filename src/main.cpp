@@ -30,10 +30,10 @@
 #include "MMGDevice.hpp"
 #include "MMGPayload.hpp"
 #include <vector>
+#include <cstdlib>
 
 
-const size_t get_devices_list(std::vector<MMGDevice*>& vec);
-const size_t get_devices_list(std::vector<MMGDevice*>& vec)
+static size_t get_devices_list(std::vector<MMGDevice*>& vec)
 {
 	// Implement your code logic to grab a list of devices
 	const unsigned int badge = 1;
@@ -42,7 +42,7 @@ const size_t get_devices_list(std::vector<MMGDevice*>& vec)
 	return vec.size();
 }
 
-int main(int argc, const char* argv[])
+int main(void)
 {
 	// Get a list of devices
 	std::vector<MMGDevice*> devices;
@@ -55,7 +55,7 @@ int main(int argc, const char* argv[])
 	MMGAPNSConnection connection(MMG_APNS_CA_PATH, MMG_APNS_CERT_PATH, MMG_APNS_PRIVATEKEY_PATH, "private-key-password", true);
 	// Open the connection
 	if (connection.OpenConnection() != MMGConnectionError::MMGNoError)
-		return -1;
+		return EXIT_FAILURE;
 
 	// Send the payload
 	for (MMGDevice* device : devices)
@@ -65,13 +65,13 @@ int main(int argc, const char* argv[])
 		// Send payload to the device
 		connection.SendPayloadToDevice(payload, *device);
 	}
-	
+
 	// Free up memory
 	for (MMGDevice* device : devices)
 		delete device;
 
 	// Close the connection
 	connection.CloseConnection();
-	
-	return 0;
+
+	return EXIT_SUCCESS;
 }

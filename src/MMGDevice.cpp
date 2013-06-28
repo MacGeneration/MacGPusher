@@ -28,14 +28,12 @@
 #include "MMGDevice.hpp"
 
 
-#pragma mark - Contructor
 MMGDevice::MMGDevice(const std::string& token, const unsigned int badge)
 {
 	this->_token = token;
 	this->_badge = badge;
 }
 
-#pragma mark - Setters
 void MMGDevice::SetToken(const std::string& token)
 {
 	this->_token = token;

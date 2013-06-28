@@ -43,38 +43,12 @@ private:
 	std::string _soundName;
 	/// Label of the action button
 	std::string _actionKeyLabel;
-    /// Custom dictionary accessible from the app
-	std::map<std::string, std::string> _dict;
 	/// Formatted APNS payload as JSON
 	std::string _formattedPayload;
+	/// Custom dictionary accessible from the app
+	std::map<std::string, std::string> _dict;
 
 public:
-	/**
-	 * @brief Initialize ivars to default values
-	 */
-	MMGPayload(void);
-
-	/**
-	 * @brief Set message body
-	 * @param messageBody [in] : Message body
-	 */
-	MMGPayload(const std::string& messageBody);
-
-	/**
-	 * @brief Set message body and badge number
-	 * @param messageBody [in] : Message body
-	 * @param badgeNumber [in] : Badge number
-	 */
-	MMGPayload(const std::string& messageBody, const unsigned int badgeNumber);
-
-	/**
-	 * @brief Set message body, badge number and sound name to play
-	 * @param messageBody [in] : Message body
-	 * @param badgeNumber [in] : Badge number
-	 * @param soundName [in] : Name of the sound file to play on the device
-	 */
-	MMGPayload(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName);
-
 	/**
 	 * @brief Set message body, badge number, sound name to play and action button label
 	 * @param messageBody [in] : Message body
@@ -82,7 +56,7 @@ public:
 	 * @param soundName [in] : Name of the sound file to play on the device
 	 * @param actionKeyLabel [in] : Label of the action button
 	 */
-	MMGPayload(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName, const std::string& actionKeyLabel);
+	MMGPayload(const std::string& messageBody = "", const unsigned int badgeNumber = 0, const std::string& soundName = "default", const std::string& actionKeyLabel = "");
 
 	/**
 	 * @brief Destructor
@@ -99,7 +73,7 @@ public:
 	 * @brief Get the badge number
 	 * @returns Badge number
 	 */
-	const unsigned int GetBadgeNumber(void)const;
+	unsigned int GetBadgeNumber(void)const;
 
 	/**
 	 * @brief Get a reference to the sound name
@@ -158,7 +132,7 @@ public:
 	 * @param value [in] : Value associated to key
 	 * @returns true if the key/value pair was set, false if max limit
 	 */
-	const bool AddKeyValuePair(const std::string& key, const std::string& value);
+	bool AddKeyValuePair(const std::string& key, const std::string& value);
 
 	/**
 	 * @brief Remove a pair of key/value

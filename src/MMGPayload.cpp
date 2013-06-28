@@ -35,37 +35,11 @@
 #define MMG_MAX_KEYVALUE 3
 
 
-#pragma mark - Constructors
-MMGPayload::MMGPayload(void)
+MMGPayload::MMGPayload(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName, const std::string& actionKeyLabel)
+  : _messageBody(messageBody), _badgeNumber(badgeNumber), _soundName(soundName), _actionKeyLabel(actionKeyLabel), _formattedPayload("")
 {
-	this->_messageBody = "";
-	this->_badgeNumber = 0;
-	this->_soundName = "default";
-	this->_actionKeyLabel = "";
-	this->_formattedPayload = "";
 }
 
-MMGPayload::MMGPayload(const std::string& messageBody) : MMGPayload()
-{
-	this->_messageBody = messageBody;
-}
-
-MMGPayload::MMGPayload(const std::string& messageBody, const unsigned int badgeNumber) : MMGPayload(messageBody)
-{
-	this->_badgeNumber = badgeNumber;
-}
-
-MMGPayload::MMGPayload(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName) : MMGPayload(messageBody, badgeNumber)
-{
-	this->_soundName = (soundName.empty()) ? "default" : soundName;
-}
-
-MMGPayload::MMGPayload(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName, const std::string& actionKeyLabel) : MMGPayload(messageBody, badgeNumber, soundName)
-{
-	this->_actionKeyLabel = actionKeyLabel;
-}
-
-#pragma mark - Setters
 void MMGPayload::SetMessageBody(const std::string& messageBody)
 {
 	this->_messageBody = messageBody;
@@ -99,7 +73,7 @@ void MMGPayload::SetAllProperties(const std::string& messageBody, const unsigned
 	this->_FormatPayload();
 }
 
-const bool MMGPayload::AddKeyValuePair(const std::string& key, const std::string& value)
+bool MMGPayload::AddKeyValuePair(const std::string& key, const std::string& value)
 {
 	if (this->_dict.size() >= MMG_MAX_KEYVALUE)
 		return false;
@@ -112,13 +86,12 @@ void MMGPayload::RemoveValueForKey(const std::string& key)
 	this->_dict.erase(key);
 }
 
-#pragma mark - Getters
 const std::string& MMGPayload::GetMessageBody(void)const
 {
 	return this->_messageBody;
 }
 
-const unsigned int MMGPayload::GetBadgeNumber(void)const
+unsigned int MMGPayload::GetBadgeNumber(void)const
 {
 	return this->_badgeNumber;
 }
@@ -140,7 +113,6 @@ const std::string& MMGPayload::GetPayload(void)
 	return this->_formattedPayload;
 }
 
-#pragma mark - Private
 void MMGPayload::_FormatPayload(void)
 {
 	// Ignore empty messages
@@ -165,7 +137,7 @@ void MMGPayload::_FormatPayload(void)
 
 	// Sound
 	this->_formattedPayload += ",\"sound\":\"" + this->_soundName + "\"}";
-	
+
 	// Custom key/values
 	const std::map<std::string, std::string>::size_type size = _dict.size();
 	if ((size > 0) && (size < MMG_MAX_KEYVALUE))
