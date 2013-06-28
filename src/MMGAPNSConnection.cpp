@@ -32,7 +32,6 @@
 
 
 #define MMG_MAXPAYLOAD_SIZE 256
-#define MMG_DEVICE_BINARY_SIZE 32
 
 
 MMGAPNSConnection::MMGAPNSConnection(const std::string& certsPath, const std::string& certFile, const std::string& keyFile, const std::string& keyPassword, const bool sandbox) : MMGSSLConnection((sandbox) ? MMG_APNS_SERVER_SANDBOX : MMG_APNS_SERVER, MMG_APNS_PORT, certsPath, certFile, keyFile, keyPassword)
@@ -42,11 +41,6 @@ MMGAPNSConnection::MMGAPNSConnection(const std::string& certsPath, const std::st
 
 bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device)
 {
-	const std::string& token = device.GetToken();
-	const std::string::size_type tokenLen = token.size();
-	if (0 == tokenLen)
-		return false;
-
 	const char* payloadBuffer = payload.GetPayload().c_str();
 	const size_t payloadLen = strlen(payloadBuffer);
 	char binaryMessageBuff[sizeof(uint8_t) + sizeof(uint16_t) + MMG_DEVICE_BINARY_SIZE + sizeof(uint16_t) + MMG_MAXPAYLOAD_SIZE];
@@ -63,28 +57,8 @@ bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice
 	memcpy(binaryMessagePt, &networkOrderTokenLen, sizeof(uint16_t));
 	binaryMessagePt += sizeof(uint16_t);
 
-	// Convert the device token
-	size_t i = 0, j = 0;
-	int tmpi;
-	char tmp[3] = {0x00};
-	char deviceTokenBinary[MMG_DEVICE_BINARY_SIZE];
-	while (i < tokenLen)
-	{
-		if (token[i] == ' ')
-			i++;
-		else
-		{
-			tmp[0] = token[i];
-			tmp[1] = token[i + 1];
-
-			sscanf(tmp, "%x", &tmpi);
-			deviceTokenBinary[j] = (char)tmpi;
-
-			i += 2;
-			j++;
-		}
-	}
-	memcpy(binaryMessagePt, deviceTokenBinary, MMG_DEVICE_BINARY_SIZE);
+	// Device binary token
+	memcpy(binaryMessagePt, device.GetBinaryToken(), MMG_DEVICE_BINARY_SIZE);
 	binaryMessagePt += MMG_DEVICE_BINARY_SIZE;
 
 	// Payload length network order

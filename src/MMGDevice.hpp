@@ -30,6 +30,8 @@
 
 #include <string>
 
+#define MMG_DEVICE_BINARY_SIZE 32
+
 
 class MMGDevice
 {
@@ -38,6 +40,8 @@ private:
 	std::string _token = "";
 	/// Badge number
 	unsigned int _badge = 0;
+	/// Binary token
+	char _binaryToken[MMG_DEVICE_BINARY_SIZE];
 
 public:
 	/**
@@ -68,13 +72,25 @@ public:
 	 * @brief Get the device token
 	 * @returns Reference to the device token string
 	 */
-	const std::string& GetToken(void)const {return this->_token;}
+	const std::string& GetToken(void)const;
 
 	/**
 	 * @brief Get the device badge number
 	 * @returns Badge number
 	 */
-	unsigned int GetBadge(void)const {return this->_badge;}
+	unsigned int GetBadge(void)const;
+
+	/**
+	 * @brief Get the binary token
+	 * @returns Binary token as a char array
+	 */
+	const char* GetBinaryToken(void)const;
+
+private:
+	/**
+	 * @brief Convert the 64b ASCII token to his binary representation
+	 */
+	void __CreateBinaryToken(void);
 };
 
 #endif /* __MMGDEVICE_H__ */

@@ -32,14 +32,54 @@ MMGDevice::MMGDevice(const std::string& token, const unsigned int badge)
 {
 	this->_token = token;
 	this->_badge = badge;
+	this->__CreateBinaryToken();
 }
 
 void MMGDevice::SetToken(const std::string& token)
 {
 	this->_token = token;
+	this->__CreateBinaryToken();
 }
 
 void MMGDevice::SetBadge(const unsigned int badge)
 {
 	this->_badge = badge;
+}
+
+const std::string& MMGDevice::GetToken(void)const
+{
+	return this->_token;
+}
+
+unsigned int MMGDevice::GetBadge(void)const
+{
+	return this->_badge;
+}
+
+const char* MMGDevice::GetBinaryToken(void)const
+{
+	return this->_binaryToken;
+}
+
+void MMGDevice::__CreateBinaryToken(void)
+{
+	const size_t tokenLen = this->_token.size();
+	size_t i = 0, j = 0;
+	int tmpi;
+	char tmp[3] = {0x00};
+	memset(this->_binaryToken, 0x00, MMG_DEVICE_BINARY_SIZE);
+	while (i < tokenLen)
+	{
+		if (this->_token[i] == ' ')
+			i++;
+		else
+		{
+			tmp[0] = this->_token[i];
+			tmp[1] = this->_token[i + 1];
+			sscanf(tmp, "%x", &tmpi);
+			this->_binaryToken[j] = static_cast<char>(tmpi);
+			i += 2;
+			j++;
+		}
+	}
 }

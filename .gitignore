@@ -8,3 +8,5 @@ MacGPusher
 *.d
 
 *~
+
+*.xccheckout
