@@ -36,50 +36,78 @@
 
 int MMGTools::StringToInteger(const std::string& str)
 {
-	std::stringstream ss(str);
-	int res = 0;
-
-	ss >> res;
-	return res;
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-value"
+#endif
+	char* s = const_cast<char*>(str.c_str());
+	int res = 0, n = 1;
+	unsigned int c;
+	if (*s == '-')
+	{
+		n = -1;
+		*s++;
+	}
+	while ((unsigned int)(c = (unsigned int)*s++ - 48) < 10u)
+		res = res * 10 + (int)c;
+	return res * n;
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 }
 
 unsigned int MMGTools::StringToUnsignedInteger(const std::string& str)
 {
-	std::stringstream ss(str);
+	const char* s = str.c_str();
 	unsigned int res = 0;
-
-	ss >> res;
+	unsigned int c;
+	while ((unsigned int)(c = (unsigned int)*s++ - 48) < 10u)
+		res = res * 10 + c;
 	return res;
 }
 
 const std::string MMGTools::IntegerToString(int i)
 {
-	std::stringstream ss;
-	std::string res;
-
-	ss << i;
-	ss >> res;
-	return res;
+	static char buf[INT_DIGITS + 2];
+	char* p = buf + INT_DIGITS + 1;
+	if (i >= 0)
+	{
+		do
+		{
+			*--p = 48 + (i % 10);
+			i /= 10;
+		} while (i != 0);
+		return std::string(p);
+	}
+	else
+	{
+		do
+		{
+			*--p = 48 - (i % 10);
+			i /= 10;
+		} while (i != 0);
+		*--p = '-';
+	}
+	return std::string(p);
 }
 
 const std::string MMGTools::UnsignedIntegerToString(unsigned int i)
 {
-	std::stringstream ss;
-	std::string res;
-
-	ss << i;
-	ss >> res;
-	return res;
+	static char buf[INT_DIGITS + 2];
+	char* p = buf + INT_DIGITS + 1;
+	do
+	{
+		*--p = 48 + (i % 10);
+		i /= 10;
+	} while (i != 0);
+	return std::string(p);
 }
 
 const std::string MMGTools::FloatToString(const float f)
 {
-	std::stringstream ss;
-	std::string res;
-
-	ss << f;
-	ss >> res;
-	return res;
+	char array[32] = {0x00};
+	sprintf(array, "%f", f);
+	return std::string(array);
 }
 
 void MMGTools::StringToVector(const std::string& str, std::vector<std::string>& vec, const char* sep)
