@@ -64,6 +64,11 @@ MMGSSLConnection::~MMGSSLConnection(void)
 	this->CloseConnection();
 }
 
+bool MMGSSLConnection::IsConnected(void)const
+{
+	return ((this->_socket != -1) && (this->_ssl != NULL) && (this->_sslCtx != NULL));
+}
+
 MMGConnectionError MMGSSLConnection::OpenConnection(void)
 {
 	// If already connected, bye bye
@@ -179,6 +184,16 @@ bool MMGSSLConnection::SendBuffer(const unsigned char* buffer, const size_t size
 	}
 #endif
 	return (ret > 0);
+}
+
+void MMGSSLConnection::SetHostname(const std::string& hostname)
+{
+	this->_hostname = hostname;
+}
+
+void MMGSSLConnection::SetPort(const unsigned short port)
+{
+	this->_port = port;
 }
 
 void MMGSSLConnection::__CloseSocket(void)

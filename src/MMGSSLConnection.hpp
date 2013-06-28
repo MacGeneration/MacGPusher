@@ -111,10 +111,7 @@ public:
 	 * @brief Returns the connection status
 	 * @returns true if we are connected to the server, false otherwise
 	 */
-	bool IsConnected(void)const
-	{
-	  return ((this->_socket != -1) && (this->_ssl != NULL) && (this->_sslCtx != NULL));
-	}
+	bool IsConnected(void)const;
 
 	/**
 	 * @brief Connect to the server
@@ -139,13 +136,13 @@ public:
 	 * @brief Set hostname or IP address of the server
 	 * @param hostname [in] : Hostname or IP address
 	 */
-	void SetHostname(const std::string& hostname) {this->_hostname = hostname;}
+	void SetHostname(const std::string& hostname);
 
 	/**
 	 * @brief Set the port of the server
 	 * @param port [in] : Port number
 	 */
-	void SetPort(const unsigned short port) {this->_port = port;}
+	void SetPort(const unsigned short port);
 
 private:
 	/**
