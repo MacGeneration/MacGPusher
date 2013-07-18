@@ -29,6 +29,7 @@
 #include "MMGAPNSConnection.hpp"
 #include "MMGDevice.hpp"
 #include "MMGPayload.hpp"
+#include "MMGTools.hpp"
 #include <vector>
 #include <cstdlib>
 
@@ -40,6 +41,67 @@ static size_t get_devices_list(std::vector<MMGDevice*>& vec)
 	MMGDevice* device = new MMGDevice("token", badge);
 	vec.push_back(device);
 	return vec.size();
+#if 0
+	/* MySQL bridging example
+	 
+	 need to link with libmysqlclient or libmysqclient_r (multithread)
+	 also #include <mysql/mysql.h>
+
+	 let's assume we have a simple table like that
+	 --------------
+	 |   devices  |
+	 |------------|
+	 |token       |
+	 |unread_count|
+	 --------------
+	 */
+
+	mysql_library_init(0, NULL, NULL);
+
+	// Connect to db
+	MYSQL* conn = mysql_init(NULL);
+	if (NULL == conn)
+	{
+		MMG_ERRLOG("[!] Not enough memory to allocate the MySQL connection\n");
+		return 0;
+	}
+	mysql_options(conn, MYSQL_SET_CHARSET_NAME, "utf8");
+	if (!mysql_real_connect(conn, "host-or-ip", "user", "password", "database", 0, NULL, 0))
+	{
+		MMG_ERRLOG("[!] mysql_real_connect: %s\n", mysql_error(conn));
+		mysql_close(conn);
+		return 0;
+	}
+	
+	// SELECT devices list
+	const char* query = "SELECT token, unread_count FROM devices";
+	if (mysql_query(conn, query) != 0)
+	{
+		MMG_ERRLOG("[!] mysql_query: %s\n", mysql_error(conn));
+		mysql_close(conn);
+		return 0;
+	}
+	MYSQL_RES* res = mysql_use_result(conn);
+	if (NULL == res)
+	{
+		MMG_ERRLOG("[!] mysql_use_result: %s\n", mysql_error(conn));
+		mysql_close(conn);
+		return 0;
+	}
+	
+	// Build the list of MMGDevices
+	MYSQL_ROW row = NULL;
+	while ((row = mysql_fetch_row(res)))
+	{
+		MMGDevice* device = new MMGDevice(row[0], MMGTools::StringToUnsignedInteger(row[1]));
+		vec.push_back(device);
+    }
+	
+	mysql_free_result(res);
+	mysql_close(conn);
+	
+	return vec.size();
+#endif
 }
 
 int main(void)
