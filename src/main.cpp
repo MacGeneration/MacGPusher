@@ -106,6 +106,10 @@ static size_t get_devices_list(std::vector<MMGDevice*>& vec)
 
 int main(void)
 {
+	// SLL init only once
+	SSL_load_error_strings();
+	SSL_library_init();
+
 	// Get a list of devices
 	std::vector<MMGDevice*> devices;
 	get_devices_list(devices);
