@@ -88,6 +88,14 @@ public:
 	static bool StringReplace(std::string& str, const std::string& from, const std::string& to);
 
 	/**
+	 * @brief Replace all occurences of a std::string with another
+	 * @param str [out] : String
+	 * @param search [in] : String to search
+	 * @param replace [in] : String to replace
+	 */
+	static void StringReplaceAll(std::string& str, const std::string& search, const std::string& replace);
+
+	/**
 	 * @brief Decode a base64 encoded std::string
 	 * @param encoded_string [in] : Base64 encoded string
 	 * @returns decoded std::string

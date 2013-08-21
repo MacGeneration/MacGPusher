@@ -130,6 +130,16 @@ bool MMGTools::StringReplace(std::string& str, const std::string& from, const st
 	return true;
 }
 
+void MMGTools::StringReplaceAll(std::string& str, const std::string& search, const std::string& replace)
+{
+	std::string::size_type pos = 0;
+    while ((pos = str.find(search, pos)) != std::string::npos)
+	{
+		str.replace(pos, search.length(), replace);
+		pos += replace.length();
+    }
+}
+
 const std::string MMGTools::Base64Decode(const std::string& encoded_string)
 {
 	static const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
