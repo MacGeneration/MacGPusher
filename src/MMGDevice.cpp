@@ -26,7 +26,7 @@
 
 
 #include "MMGDevice.hpp"
-#include <string.h>
+#include <cstring>
 
 
 MMGDevice::MMGDevice(const std::string& token, const unsigned int badge)
