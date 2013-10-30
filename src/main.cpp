@@ -28,7 +28,7 @@
 #include "global.hpp"
 #include "MMGAPNSConnection.hpp"
 #include "MMGDevice.hpp"
-#include "MMGPayload.hpp"
+#include "MMGIOSPayload.hpp"
 #include "MMGTools.hpp"
 #include <vector>
 #include <cstdlib>
@@ -121,7 +121,7 @@ int main(void)
 	get_devices_list(devices);
 
 	// Create a payload object
-	MMGPayload payload("Push message", 1, "sound.caf", "Slider label");
+	MMGIOSPayload payload("Push message", "Slider label", 1, "sound.caf");
 
 	// Create the APNS connection, empty string if no password for the private key
 	MMGAPNSConnection connection(MMG_APNS_CA_PATH, MMG_APNS_CERT_PATH, MMG_APNS_PRIVATEKEY_PATH, "private-key-password", true);

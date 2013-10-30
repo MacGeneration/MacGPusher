@@ -1,5 +1,5 @@
 //
-// MMGPayload.hpp
+// MMGSafariPayload.hpp
 //
 // Copyright (c) 2013 MacGeneration. All rights reserved.
 //
@@ -25,70 +25,65 @@
 //
 
 
-#ifndef __MMGPAYLOAD_H__
-#define __MMGPAYLOAD_H__
+#ifndef __MMGSAFARIPAYLOAD_H__
+#define __MMGSAFARIPAYLOAD_H__
 
-#include <string>
+#include "MMGPayload.hpp"
+#include <vector>
 
 
-class MMGPayload
+class MMGSafariPayload : public MMGPayload
 {
-protected:
-	/// Message displayed to the user
-	std::string _body;
-	/// Label of the action button
-	std::string _actionKeyLabel;
-	/// Formatted APNS payload as JSON
-	std::string _formattedPayload;
+private:
+	/// Notification title
+	std::string _title;
+	/// URL arguments
+	std::vector<std::string> _urlArguments;
 
 public:
 	/**
 	 * @brief Set message body, badge number, sound name to play and action button label
 	 * @param body [in] : Message body
-	 * @param actionKeyLabel [in] : Label of the action button
+	 * @param actionKeyLabel [in] : Action button label
+	 * @param title [in] : Message title
+	 * @param urlArguments [in] : URL arguments for the URL to open when notification is clicked
 	 */
-	MMGPayload(const std::string& body = "", const std::string& actionKeyLabel = "");
+	MMGSafariPayload(const std::string& body = "", const std::string& actionKeyLabel = "Show", const std::string& title = "", const std::vector<std::string>& urlArguments = std::vector<std::string>());
 
 	/**
 	 * @brief Destructor
 	 */
-	~MMGPayload(void) {}
+	~MMGSafariPayload(void) {}
 
 	/**
-	 * @brief Get a reference to the the message body
-	 * @returns Message body as a std::string
+	 * @brief Get a reference to the the title
+	 * @returns title as a std::string
 	 */
-	const std::string& GetBody(void)const;
+	const std::string& GetTitle(void)const;
 
 	/**
-	 * @brief Get a reference to the the action key label
-	 * @returns Action key label as a std::string
+	 * @brief Get a reference to URL arguments
+	 * @returns URL arguments as a std::vector<std::string>
 	 */
-	const std::string& GetActionKeyLabel(void)const;
+	const std::vector<std::string>& GetURLArguments(void)const;
 
 	/**
-	 * @brief Get a reference to the formatted payload, create it if needed
-	 * @returns Payload as a json std::string
+	 * @brief Set title and reconstruct the JSON payload
+	 * @param title [in] : Message body
 	 */
-	const std::string& GetPayload(void);
+	void SetTitle(const std::string& title);
 
 	/**
-	 * @brief Set message body and reconstruct the JSON payload
-	 * @param body [in] : Message body
+	 * @brief Set URL arguments and reconstruct the JSON payload
+	 * @param urlArguments [in] : URL arguments
 	 */
-	void SetBody(const std::string& body);
-
-	/**
-	 * @brief Set action button label and reconstruct the JSON payload
-	 * @param actionKeyLabel [in] : Label of the action button
-	 */
-	void SetActionKeyLabel(const std::string& actionKeyLabel);
+	void SetURLArguments(const std::vector<std::string>& urlArguments);
 
 protected:
 	/**
 	 * @brief Create the JSON payload according to the ivars
 	 */
-	virtual void _FormatPayload(void) = 0;
+	void _FormatPayload(void);
 };
 
-#endif /* __MMGPAYLOAD_H__ */
+#endif /* __MMGSAFARIPAYLOAD_H__ */

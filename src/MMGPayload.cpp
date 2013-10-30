@@ -26,79 +26,16 @@
 
 
 #include "MMGPayload.hpp"
-#include "global.hpp"
-#include "MMGTools.hpp"
-#include <cstdio>
-#include <cstring>
 
 
-#define MMG_MAX_KEYVALUE 3
-
-
-MMGPayload::MMGPayload(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName, const std::string& actionKeyLabel)
-  : _messageBody(messageBody), _badgeNumber(badgeNumber), _soundName(soundName), _actionKeyLabel(actionKeyLabel), _formattedPayload("")
+MMGPayload::MMGPayload(const std::string& body, const std::string& actionKeyLabel)
+: _body(body), _actionKeyLabel(actionKeyLabel), _formattedPayload("")
 {
 }
 
-void MMGPayload::SetMessageBody(const std::string& messageBody)
+const std::string& MMGPayload::GetBody(void)const
 {
-	this->_messageBody = messageBody;
-	this->_FormatPayload();
-}
-
-void MMGPayload::SetBadgeNumber(const unsigned int badgeNumber)
-{
-	this->_badgeNumber = badgeNumber;
-	this->_FormatPayload();
-}
-
-void MMGPayload::SetSoundName(const std::string& soundName)
-{
-	this->_soundName = (soundName.empty()) ? "default" : soundName;
-	this->_FormatPayload();
-}
-
-void MMGPayload::SetActionKeyLabel(const std::string& actionKeyLabel)
-{
-	this->_actionKeyLabel = actionKeyLabel;
-	this->_FormatPayload();
-}
-
-void MMGPayload::SetAllProperties(const std::string& messageBody, const unsigned int badgeNumber, const std::string& soundName, const std::string& actionKeyLabel)
-{
-	this->_messageBody = messageBody;
-	this->_badgeNumber = badgeNumber;
-	this->_soundName = (soundName.empty()) ? "default" : soundName;
-	this->_actionKeyLabel = actionKeyLabel;
-	this->_FormatPayload();
-}
-
-bool MMGPayload::AddKeyValuePair(const std::string& key, const std::string& value)
-{
-	if (this->_dict.size() >= MMG_MAX_KEYVALUE)
-		return false;
-	this->_dict.insert(std::pair<std::string, std::string>(key, value));
-	return true;
-}
-
-void MMGPayload::RemoveValueForKey(const std::string& key)
-{
-	this->_dict.erase(key);
-}
-
-const std::string& MMGPayload::GetMessageBody(void)const
-{
-	return this->_messageBody;
-}
-
-unsigned int MMGPayload::GetBadgeNumber(void)const
-{
-	return this->_badgeNumber;
-}
-
-const std::string& MMGPayload::GetSoundName(void)const
-{
-	return this->_soundName;
+	return this->_body;
 }
 
 const std::string& MMGPayload::GetActionKeyLabel(void)const
@@ -113,47 +50,14 @@ const std::string& MMGPayload::GetPayload(void)
 	return this->_formattedPayload;
 }
 
-void MMGPayload::_FormatPayload(void)
+void MMGPayload::SetBody(const std::string& body)
 {
-	// Ignore empty messages
-	if (this->_messageBody.empty())
-	{
-		this->_formattedPayload = "";
-		return;
-	}
+	this->_body = body;
+	this->_FormatPayload();
+}
 
-	// Begin JSON
-	// see: http://developer.apple.com/library/ios/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html#//apple_ref/doc/uid/TP40008194-CH100-SW9
-	this->_formattedPayload = std::string("{\"aps\":{\"alert\":");
-
-	// Custom action button label
-	if (!this->_actionKeyLabel.empty())
-		this->_formattedPayload += "{\"body\":\"" + this->_messageBody + "\",\"action-loc-key\":\"" + this->_actionKeyLabel + "\"},";
-	else
-		this->_formattedPayload += "\"" + this->_messageBody + "\",";
-
-	// Badge number
-	this->_formattedPayload += (std::string("\"badge\":") + MMGTools::UnsignedIntegerToString(this->_badgeNumber));
-
-	// Sound
-	this->_formattedPayload += ",\"sound\":\"" + this->_soundName + "\"}";
-
-	// Custom key/values
-	const std::map<std::string, std::string>::size_type size = _dict.size();
-	if ((size > 0) && (size < MMG_MAX_KEYVALUE))
-	{
-		this->_formattedPayload += ",";
-		unsigned int i = 0;
-		for (const auto& kv : this->_dict)
-		{
-			this->_formattedPayload += "\"" + kv.first + "\":\"" + kv.second + "\"";
-			if (i < (MMG_MAX_KEYVALUE - 1))
-				this->_formattedPayload += ",";
-			i++;
-		}
-	}
-
-	// End JSON
-	this->_formattedPayload += "}";
-	MMG_DLOG("PAYLOAD: %s\n", this->_formattedPayload.c_str());
+void MMGPayload::SetActionKeyLabel(const std::string& actionKeyLabel)
+{
+	this->_actionKeyLabel = actionKeyLabel;
+	this->_FormatPayload();
 }

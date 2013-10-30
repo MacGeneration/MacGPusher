@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E476429182044BA00147CEF /* MMGSafariPayload.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E476425182044BA00147CEF /* MMGSafariPayload.cpp */; };
+		1EA9B93518210C31001C006E /* MMGIOSPayload.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EA9B93318210C31001C006E /* MMGIOSPayload.cpp */; };
 		1EC7B3F317772592007D80A2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3E817772582007D80A2 /* main.cpp */; };
 		1EC7B3F417772592007D80A2 /* MMGAPNSConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3E917772582007D80A2 /* MMGAPNSConnection.cpp */; };
 		1EC7B3F517772592007D80A2 /* MMGDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7B3EB17772582007D80A2 /* MMGDevice.cpp */; };
@@ -30,6 +32,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1E476425182044BA00147CEF /* MMGSafariPayload.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MMGSafariPayload.cpp; sourceTree = "<group>"; };
+		1E476426182044BA00147CEF /* MMGSafariPayload.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MMGSafariPayload.hpp; sourceTree = "<group>"; };
+		1EA9B93318210C31001C006E /* MMGIOSPayload.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MMGIOSPayload.cpp; sourceTree = "<group>"; };
+		1EA9B93418210C31001C006E /* MMGIOSPayload.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MMGIOSPayload.hpp; sourceTree = "<group>"; };
 		1EC7B3DA177721FF007D80A2 /* MacGPusher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacGPusher; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC7B3E717772582007D80A2 /* global.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = global.hpp; sourceTree = "<group>"; };
 		1EC7B3E817772582007D80A2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -80,6 +86,10 @@
 		1EC7B3E617772582007D80A2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1EA9B93318210C31001C006E /* MMGIOSPayload.cpp */,
+				1EA9B93418210C31001C006E /* MMGIOSPayload.hpp */,
+				1E476425182044BA00147CEF /* MMGSafariPayload.cpp */,
+				1E476426182044BA00147CEF /* MMGSafariPayload.hpp */,
 				1EC7B3E717772582007D80A2 /* global.hpp */,
 				1EC7B3E817772582007D80A2 /* main.cpp */,
 				1EC7B3F017772582007D80A2 /* MMGSSLConnection.hpp */,
@@ -156,8 +166,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EA9B93518210C31001C006E /* MMGIOSPayload.cpp in Sources */,
 				1EC7B3F317772592007D80A2 /* main.cpp in Sources */,
 				1EC7B3F417772592007D80A2 /* MMGAPNSConnection.cpp in Sources */,
+				1E476429182044BA00147CEF /* MMGSafariPayload.cpp in Sources */,
 				1EC7B3F517772592007D80A2 /* MMGDevice.cpp in Sources */,
 				1EC7B3F617772592007D80A2 /* MMGPayload.cpp in Sources */,
 				1EC7B3F717772592007D80A2 /* MMGSSLConnection.cpp in Sources */,

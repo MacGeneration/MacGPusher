@@ -1,5 +1,5 @@
 //
-// MMGPayload.hpp
+// MMGIOSPayload.hpp
 //
 // Copyright (c) 2013 MacGeneration. All rights reserved.
 //
@@ -25,70 +25,81 @@
 //
 
 
-#ifndef __MMGPAYLOAD_H__
-#define __MMGPAYLOAD_H__
+#ifndef __MMGIOSPAYLOAD_H__
+#define __MMGIOSPAYLOAD_H__
 
-#include <string>
+#include "MMGPayload.hpp"
+#include <map>
 
 
-class MMGPayload
+class MMGIOSPayload : public MMGPayload
 {
-protected:
-	/// Message displayed to the user
-	std::string _body;
-	/// Label of the action button
-	std::string _actionKeyLabel;
-	/// Formatted APNS payload as JSON
-	std::string _formattedPayload;
+private:
+	/// Number in the bubble
+	unsigned int _badgeNumber;
+	/// Name of the sound file to play
+	std::string _soundName;
+	/// Custom dictionary accessible from the app
+	std::map<std::string, std::string> _dict;
 
 public:
 	/**
 	 * @brief Set message body, badge number, sound name to play and action button label
 	 * @param body [in] : Message body
 	 * @param actionKeyLabel [in] : Label of the action button
+	 * @param badgeNumber [in] : Badge number
+	 * @param soundName [in] : Name of the sound file to play on the device
 	 */
-	MMGPayload(const std::string& body = "", const std::string& actionKeyLabel = "");
-
+	MMGIOSPayload(const std::string& body = "", const std::string& actionKeyLabel = "", const unsigned int badgeNumber = 1, const std::string& soundName = "default");
+	
 	/**
 	 * @brief Destructor
 	 */
-	~MMGPayload(void) {}
+	~MMGIOSPayload(void) {}
 
 	/**
-	 * @brief Get a reference to the the message body
-	 * @returns Message body as a std::string
+	 * @brief Get the badge number
+	 * @returns Badge number
 	 */
-	const std::string& GetBody(void)const;
+	unsigned int GetBadgeNumber(void)const;
+	
+	/**
+	 * @brief Get a reference to the sound name
+	 * @returns Sound name as a std::string
+	 */
+	const std::string& GetSoundName(void)const;
 
 	/**
-	 * @brief Get a reference to the the action key label
-	 * @returns Action key label as a std::string
+	 * @brief Set badge number and reconstruct the JSON payload
+	 * @param badgeNumber [in] : Badge number
 	 */
-	const std::string& GetActionKeyLabel(void)const;
+	void SetBadgeNumber(const unsigned int badgeNumber);
+	
+	/**
+	 * @brief Set sound name and reconstruct the JSON payload
+	 * @param soundName [in] : Name of the sound file to play on the device
+	 */
+	void SetSoundName(const std::string& soundName);
 
 	/**
-	 * @brief Get a reference to the formatted payload, create it if needed
-	 * @returns Payload as a json std::string
+	 * @brief Set a pair of custom key/value
+	 * @param key [in] : key
+	 * @param value [in] : Value associated to key
+	 * @returns true if the key/value pair was set, false if max limit
 	 */
-	const std::string& GetPayload(void);
-
+	bool AddKeyValuePair(const std::string& key, const std::string& value);
+	
 	/**
-	 * @brief Set message body and reconstruct the JSON payload
-	 * @param body [in] : Message body
+	 * @brief Remove a pair of key/value
+	 * @param key [in] : key
 	 */
-	void SetBody(const std::string& body);
-
-	/**
-	 * @brief Set action button label and reconstruct the JSON payload
-	 * @param actionKeyLabel [in] : Label of the action button
-	 */
-	void SetActionKeyLabel(const std::string& actionKeyLabel);
+	void RemoveValueForKey(const std::string& key);
 
 protected:
 	/**
 	 * @brief Create the JSON payload according to the ivars
 	 */
-	virtual void _FormatPayload(void) = 0;
+	void _FormatPayload(void);
 };
 
-#endif /* __MMGPAYLOAD_H__ */
+#endif /* __MMGIOSPAYLOAD_H__ */
