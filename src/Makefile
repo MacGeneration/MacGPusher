@@ -31,6 +31,8 @@ SRCS		= MMGAPNSConnection.cpp \
 		MMGDevice.cpp \
 		MMGTools.cpp \
 		MMGPayload.cpp \
+		MMGSafariPayload.cpp \
+		MMGIOSPayload.cpp \
 		main.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
