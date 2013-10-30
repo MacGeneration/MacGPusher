@@ -34,6 +34,12 @@
 #include <cstdlib>
 
 
+#ifdef __APPLE__
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma gcc diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
+
 static size_t get_devices_list(std::vector<MMGDevice*>& vec)
 {
 	// Implement your code logic to grab a list of devices
