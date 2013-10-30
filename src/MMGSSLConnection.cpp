@@ -53,9 +53,6 @@ MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned s
 	this->_privateKey = NULL;
 	// Choose a SSL/TLS protocol version
 	this->_sslMethod = (SSL_METHOD*)SSLv3_method();
-	// SSL init
-	//SSL_library_init();
-	//SSL_load_error_strings();
 }
 
 MMGSSLConnection::~MMGSSLConnection(void)
