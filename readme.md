@@ -1,6 +1,6 @@
 # MacGPusher #
 
-This is a small C++11 project for interacting with the Apple Push Notification Service (APNS).
+This is a small C++11 project for interacting with the Apple Push Notification Service (APNS). You can send push notifications to iOS devices or Safari browser (OS X 10.9 only).
 
 
 ## Installation ##
@@ -20,13 +20,13 @@ If you want to build it by hand :
 
 *gcc:*
 
-	g++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
+	g++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp MMGSafariPayload.cpp MMGIOSPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
 
 *clang:*
 
 *Some users reported problem building with clang on Debian 7.0 (see #1)*
 
-	clang++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
+	clang++ MMGAPNSConnection.cpp MMGSSLConnection.cpp MMGDevice.cpp MMGTools.cpp MMGPayload.cpp MMGSafariPayload.cpp MMGIOSPayload.cpp main.cpp -lssl -lcrypto -std=c++11 -o MacGPusher
 
 
 ## Usage ##
