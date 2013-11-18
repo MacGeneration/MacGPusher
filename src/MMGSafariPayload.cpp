@@ -93,5 +93,5 @@ void MMGSafariPayload::_FormatPayload(void)
 	// End JSON
 	this->_formattedPayload += "}";
 
-	MMG_DLOG("[+] PAYLOAD: %s\n", this->_formattedPayload.c_str());
+	//MMG_DLOG("[+] PAYLOAD: %s\n", this->_formattedPayload.c_str());
 }
