@@ -45,6 +45,4 @@ Fetching a list of devices is up to you. I use this project with **libmysqlclien
 
 ***MacGPusher*** is released under the *Simplified BSD license*, see **LICENSE.txt**.
 
-Blog : <http://www.cocoaintheshell.com/>
-
-Twitter : @Nyx0uf
+Twitter : @MacGeneration
