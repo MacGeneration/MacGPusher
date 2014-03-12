@@ -95,9 +95,12 @@ void MMGIOSPayload::_FormatPayload(void)
 	// Badge number
 	this->_formattedPayload += (std::string("\"badge\":") + MMGTools::UnsignedIntegerToString(this->_badgeNumber));
 	
+	// Content-available
+	this->_formattedPayload += ",\"content-available\":1";
+	
 	// Sound
 	this->_formattedPayload += ",\"sound\":\"" + this->_soundName + "\"}";
-	
+
 	// Custom key/values
 	const std::map<std::string, std::string>::size_type size = _dict.size();
 	if ((size > 0) && (size < MMG_MAX_KEYVALUE))
@@ -112,9 +115,10 @@ void MMGIOSPayload::_FormatPayload(void)
 			i++;
 		}
 	}
+	// If last char is ',', remove it, because it will be invaid JSON
+	if (this->_formattedPayload[this->_formattedPayload.size() - 1] == ',')
+		this->_formattedPayload.erase(this->_formattedPayload.size() - 1, 1);
 	
 	// End JSON
 	this->_formattedPayload += "}";
-
-	//MMG_DLOG("[+] PAYLOAD: %s\n", this->_formattedPayload.c_str());
 }
