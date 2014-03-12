@@ -133,6 +133,15 @@ public:
 	bool SendBuffer(const unsigned char* buffer, const size_t size);
 
 	/**
+	 * @brief Receive a buffer of bytes
+	 * @param buffer [out] : Buffer received, MUST NOT BE NULL
+	 * @param bufferSize [in] : Capacity of the buffer, should not be 0
+	 * @param outSize [out] : Size of the buffer received, 0 if there was an error. MUST NOT BE NULL
+	 * @return true if receive succeed, else false
+	 */
+	bool ReceiveBuffer(uint8_t* buffer, const size_t bufferSize, ssize_t* outSize);
+
+	/**
 	 * @brief Set hostname or IP address of the server
 	 * @param hostname [in] : Hostname or IP address
 	 */
@@ -149,6 +158,12 @@ private:
 	 * @brief Close the socket and SSL
 	 */
 	void __CloseSocket(void);
+
+	/**
+	 * @brief Display explicit SSL error to stderr
+	 * @param ret [in] : SSL return value
+	 */
+	void __ExplainSSLReturnValue(const int ret);
 };
 
 #endif /* __MMGSSLCONNECTION_H__ */

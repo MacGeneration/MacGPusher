@@ -181,50 +181,34 @@ bool MMGSSLConnection::SendBuffer(const unsigned char* buffer, const size_t size
 	const int ret = SSL_write(this->_ssl, buffer, static_cast<int>(size));
 	if (ret <= 0)
 	{
-		// Some error occured, try to figure which one, see http://www.openssl.org/docs/ssl/SSL_get_error.html
-		const int error_code = SSL_get_error(this->_ssl, ret);
-		switch (error_code)
-		{
-			case SSL_ERROR_ZERO_RETURN:
-				MMG_ERRLOG("[!] SSL_ERROR_ZERO_RETURN (Connection closed)\n");
-				break;
-			case SSL_ERROR_WANT_READ:
-				MMG_ERRLOG("[!] SSL_ERROR_WANT_READ (Operation did not complete)\n");
-				break;
-			case SSL_ERROR_WANT_WRITE:
-				MMG_ERRLOG("[!] SSL_ERROR_WANT_WRITE (Operation did not complete)\n");
-				break;
-			case SSL_ERROR_WANT_ACCEPT:
-				MMG_ERRLOG("[!] SSL_ERROR_WANT_ACCEPT (Operation did not complete)\n");
-				break;
-			case SSL_ERROR_WANT_CONNECT:
-				MMG_ERRLOG("[!] SSL_ERROR_WANT_CONNECT (Operation did not complete)\n");
-				break;
-			case SSL_ERROR_WANT_X509_LOOKUP:
-				MMG_ERRLOG("[!] SSL_ERROR_WANT_X509_LOOKUP (Operation did not complete)\n");
-				break;
-			case SSL_ERROR_SYSCALL:
-			{
-				const unsigned long queue_error_code = ERR_get_error();
-				if (0 == queue_error_code)
-				{
-					const char* reason = (-1 == ret) ? strerror(errno) : "EOF";
-					MMG_ERRLOG("[!] SSL_ERROR_SYSCALL (%s)\n", reason);
-				}
-				else
-					MMG_ERRLOG("[!] SSL_ERROR_SYSCALL\n%s\n", ERR_error_string(queue_error_code, NULL));
-				break;
-			}
-			case SSL_ERROR_SSL:
-				MMG_ERRLOG("[!] SSL_ERROR_SSL (SSL library failure)\n%s\n", ERR_error_string(ERR_get_error(), NULL));
-				break;
-			default:
-				MMG_ERRLOG("[!] SSL_ERROR_UNKNOWN (%d)\n%s\n", error_code, ERR_error_string(ERR_get_error(), NULL));
-				break;
-		}
+		this->__ExplainSSLReturnValue(ret);
 		return false;
 	}
 	return true;
+}
+
+bool MMGSSLConnection::ReceiveBuffer(uint8_t* buffer, const size_t bufferSize, ssize_t* outSize)
+{
+	if (!buffer || !outSize)
+	{
+		MMG_ERRLOG("[!] buffer/outSize are NULL\n");
+		return false;
+	}
+
+	if (!this->_ssl)
+	{
+		MMG_ERRLOG("[!] SSL context is NULL\n");
+		return false;
+	}
+
+	const int ret = SSL_read(this->_ssl, buffer, (int)bufferSize);
+	(*outSize) = (ssize_t)ret;
+	if (ret <= 0)
+	{
+		this->__ExplainSSLReturnValue(ret);
+	}
+
+	return (ret > 0);
 }
 
 void MMGSSLConnection::SetHostname(const std::string& hostname)
@@ -252,4 +236,50 @@ void MMGSSLConnection::__CloseSocket(void)
 	SSL_free(this->_ssl), this->_ssl = NULL;
 	// Free the SSL_CTX structure
 	SSL_CTX_free(this->_sslCtx), this->_sslCtx = NULL;
+}
+
+void MMGSSLConnection::__ExplainSSLReturnValue(const int ret)
+{
+	// Some error occured, try to figure which one
+	// see http://www.openssl.org/docs/ssl/SSL_get_error.html
+	const int error_code = SSL_get_error(this->_ssl, ret);
+	switch (error_code)
+	{
+		case SSL_ERROR_ZERO_RETURN:
+			MMG_ERRLOG("[!] SSL_ERROR_ZERO_RETURN (Connection closed)\n");
+			break;
+		case SSL_ERROR_WANT_READ:
+			MMG_ERRLOG("[!] SSL_ERROR_WANT_READ (Operation did not complete)\n");
+			break;
+		case SSL_ERROR_WANT_WRITE:
+			MMG_ERRLOG("[!] SSL_ERROR_WANT_WRITE (Operation did not complete)\n");
+			break;
+		case SSL_ERROR_WANT_ACCEPT:
+			MMG_ERRLOG("[!] SSL_ERROR_WANT_ACCEPT (Operation did not complete)\n");
+			break;
+		case SSL_ERROR_WANT_CONNECT:
+			MMG_ERRLOG("[!] SSL_ERROR_WANT_CONNECT (Operation did not complete)\n");
+			break;
+		case SSL_ERROR_WANT_X509_LOOKUP:
+			MMG_ERRLOG("[!] SSL_ERROR_WANT_X509_LOOKUP (Operation did not complete)\n");
+			break;
+		case SSL_ERROR_SYSCALL:
+		{
+			const unsigned long queue_error_code = ERR_get_error();
+			if (0 == queue_error_code)
+			{
+				const char* reason = (-1 == ret) ? strerror(errno) : "EOF";
+				MMG_ERRLOG("[!] SSL_ERROR_SYSCALL (%s)\n", reason);
+			}
+			else
+				MMG_ERRLOG("[!] SSL_ERROR_SYSCALL\n%s\n", ERR_error_string(queue_error_code, NULL));
+			break;
+		}
+		case SSL_ERROR_SSL:
+			MMG_ERRLOG("[!] SSL_ERROR_SSL (SSL library failure)\n%s\n", ERR_error_string(ERR_get_error(), NULL));
+			break;
+		default:
+			MMG_ERRLOG("[!] SSL_ERROR_UNKNOWN (%d)\n%s\n", error_code, ERR_error_string(ERR_get_error(), NULL));
+			break;
+	}
 }

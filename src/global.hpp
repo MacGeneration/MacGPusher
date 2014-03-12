@@ -30,8 +30,8 @@
 
 
 /* DEBUG FLAG */
-//#define MMG_DEBUG
-#undef MMG_DEBUG
+#define MMG_DEBUG
+//#undef MMG_DEBUG
 
 
 #ifdef MMG_DEBUG
