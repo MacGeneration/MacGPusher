@@ -62,6 +62,15 @@ public:
 	 * @returns true if send OK
 	 */
 	bool SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device);
+
+	/**
+	 * @brief Send a payload to a given device, using the last spec from Apple
+	 * @param payload [in] : Payload to send
+	 * @param device [in] : Device
+	 * @param notificationId [in] : ID of the notification
+	 * @returns true if send OK
+	 */
+	bool SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId);
 };
 
 #endif /* __MMGAPNSCONNECTION_H__ */

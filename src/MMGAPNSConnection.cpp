@@ -46,6 +46,7 @@ bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice
 	char binaryMessageBuff[sizeof(uint8_t) + sizeof(uint16_t) + MMG_DEVICE_BINARY_SIZE + sizeof(uint16_t) + MMG_MAXPAYLOAD_SIZE];
 
 	// Message format: |COMMAND|TOKENLEN|TOKEN|PAYLOADLEN|PAYLOAD|
+	//                     1        2      32       2        XX
 	char* binaryMessagePt = binaryMessageBuff;
 
 	// Command
@@ -70,4 +71,100 @@ bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice
 	memcpy(binaryMessagePt, payloadBuffer, payloadLen);
 	binaryMessagePt += payloadLen;
 	return this->SendBuffer((unsigned char*)binaryMessageBuff, (size_t)(binaryMessagePt - binaryMessageBuff));
+}
+
+bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId)
+{
+	// https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW2
+	// The new format for a single push payload looks like:
+	// [command][frame length][frame data]
+	//     1          4            XX
+	// A frame is composed of 5 items:
+	// [frame data] = [item1][item2][item3][item4][item5]
+	//				 |-----------------------------------|
+	//								frame
+	// Each item is composed of 3 fields:
+	// [itemN] = [item ID][item data length][item data]
+	//               1            2              XX
+
+	const char* payloadBuffer = payload.GetPayload().c_str();
+	const size_t payloadLen = strlen(payloadBuffer);
+	
+	/*** 1: build the frame ***/
+	uint8_t frame[1024] = {0x00}; // 1024 is just to let room
+	uint8_t* framePtr = frame;
+	uint8_t itemId = 1;
+	
+	/// Item 1 = token ///
+	*framePtr++ = itemId++;
+	// Item data length
+	uint16_t itemDataLen_n = htons(MMG_DEVICE_BINARY_SIZE);
+	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
+	framePtr += sizeof(uint16_t);
+	// Token
+	memcpy(framePtr, device.GetBinaryToken(), MMG_DEVICE_BINARY_SIZE);
+	framePtr += MMG_DEVICE_BINARY_SIZE;
+	
+	/// Item 2 = payload ///
+	*framePtr++ = itemId++;
+	// Item data length
+	itemDataLen_n = htons(payloadLen);
+	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
+	framePtr += sizeof(uint16_t);
+	// Payload
+	memcpy(framePtr, payloadBuffer, payloadLen);
+	framePtr += payloadLen;
+
+	/// Item 3 = Notification Id ///
+	*framePtr++ = itemId++;
+	// Item data length
+	itemDataLen_n = htons(4);
+	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
+	framePtr += sizeof(uint16_t);
+	// Notif id
+	const uint32_t notifId_n = htonl(notificationId);
+	memcpy(framePtr, &notifId_n, sizeof(uint32_t));
+	framePtr += sizeof(uint32_t);
+
+	/// Item 4 = Expiration date ///
+	*framePtr++ = itemId++;
+	// Item data length
+	itemDataLen_n = htons(4);
+	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
+	framePtr += sizeof(uint16_t);
+	// Expiration date (0 = expires immediately)
+	const uint32_t expirationDate_n = htonl(0);
+	memcpy(framePtr, &expirationDate_n, sizeof(uint32_t));
+	framePtr += sizeof(uint32_t);
+
+	/// Item 5 = Priority ///
+	*framePtr++ = itemId;
+	// Item data length
+	itemDataLen_n = htons(1);
+	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
+	framePtr += sizeof(uint16_t);
+	// Priority (10 = send now)
+	const uint8_t priority = 10;
+	*framePtr++ = priority;
+
+	/*** 2: build payload ***/
+	const size_t frameLength = (size_t)(framePtr - frame);
+	const size_t total_length = (1 + 4 + frameLength);
+	uint8_t* pl = (uint8_t*)malloc(sizeof(uint8_t) * total_length);
+	uint8_t* pl_ptr = pl;
+
+	// Command number
+	const uint8_t command = 2;
+	*pl_ptr++ = command;
+	// Frame length
+	const uint32_t frameLength_n = htonl(frameLength);
+	memcpy(pl_ptr, &frameLength_n, sizeof(uint32_t));
+	pl_ptr += sizeof(uint32_t);
+	// Frame
+	memcpy(pl_ptr, frame, frameLength);
+	
+	// Send
+	const bool ret = this->SendBuffer(pl, total_length);
+	free(pl);
+	return ret;
 }
