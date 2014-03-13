@@ -130,12 +130,13 @@ int main(void)
 		return EXIT_FAILURE;
 
 	// Send the payload
+	uint32_t notifId = 1;
 	for (MMGDevice* device : devices)
 	{
 		// Update payload badge number to reflect device's one
 		payload.SetBadgeNumber(device->GetBadge());
 		// Send payload to the device
-		connection.SendPayloadToDevice(payload, *device);
+		connection.SendPayloadToDevice_new(payload, *device, notifId++);
 	}
 
 	// Free up memory
