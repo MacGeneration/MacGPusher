@@ -39,6 +39,21 @@ enum class MMGNotificationPriority : uint8_t
 	MMGNotificationPrioritySendNow = 10,
 };
 
+enum class MMGAPNSStatusCode : uint8_t
+{
+	MMGAPNSStatusCodeOK = 0,
+	MMGAPNSStatusCodeProcessingError = 1,
+	MMGAPNSStatusCodeMissingToken = 2,
+	MMGAPNSStatusCodeMissingTopic = 3,
+	MMGAPNSStatusCodeMissingPayload = 4,
+	MMGAPNSStatusCodeInvalidTokenSize = 5,
+	MMGAPNSStatusCodeInvalidTopicSize = 6,
+	MMGAPNSStatusCodeInvalidPayloadSize = 7,
+	MMGAPNSStatusCodeInvalidToken = 8,
+	MMGAPNSStatusCodeInvalidShutdown = 10,
+	MMGAPNSStatusCodeUnknown = 255,
+};
+
 
 class MMGAPNSConnection : public MMGSSLConnection
 {
@@ -80,6 +95,13 @@ public:
 	 * @returns true if send OK
 	 */
 	bool SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration = 0, const MMGNotificationPriority priority = MMGNotificationPriority::MMGNotificationPrioritySendNow);
+
+	/**
+	 * @brief Get a response from the APNS server
+	 * @param notificationId [out] : Last notification ID which was successfully sent
+	 * @returns APNS status code
+	 */
+	MMGAPNSStatusCode GetResponse(uint32_t* notificationId);
 };
 
 #endif /* __MMGAPNSCONNECTION_H__ */

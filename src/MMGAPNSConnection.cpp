@@ -167,3 +167,33 @@ bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDe
 	free(pl);
 	return ret;
 }
+
+MMGAPNSStatusCode MMGAPNSConnection::GetResponse(uint32_t* notificationId)
+{
+	if (!notificationId)
+		return MMGAPNSStatusCode::MMGAPNSStatusCodeUnknown;
+	*notificationId = 0;
+
+	uint8_t buffer[8] = {0x00};
+	ssize_t outSize = 0;
+
+	const bool ret = this->ReceiveBuffer(buffer, 8, &outSize);
+	if (!ret)
+		return MMGAPNSStatusCode::MMGAPNSStatusCodeUnknown;
+
+	// Response size should be 6 bytes
+	if (outSize != 6)
+		return MMGAPNSStatusCode::MMGAPNSStatusCodeUnknown;
+
+	// First byte is always 8
+	const uint8_t command = buffer[0];
+	if (command != 8)
+		return MMGAPNSStatusCode::MMGAPNSStatusCodeUnknown;
+
+	// Get the status
+	const uint8_t status = buffer[1];
+	// Get the notification ID (don't forget the endianness)
+	*notificationId = htonl(*(uint32_t*)(&(buffer[2])));
+
+	return static_cast<MMGAPNSStatusCode>(status);
+}
