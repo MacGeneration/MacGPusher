@@ -33,6 +33,13 @@ class MMGPayload;
 class MMGDevice;
 
 
+enum class MMGNotificationPriority : uint8_t
+{
+	MMGNotificationPrioritySendLater = 5,
+	MMGNotificationPrioritySendNow = 10,
+};
+
+
 class MMGAPNSConnection : public MMGSSLConnection
 {
 private:
@@ -68,9 +75,12 @@ public:
 	 * @param payload [in] : Payload to send
 	 * @param device [in] : Device
 	 * @param notificationId [in] : ID of the notification
+	 * @param expiration [in] : UNIX epoch time indicating when the notification should expires (default=0, immediately). For example, if you want to keep it for a day you want to pass time(NULL) + 86400
+	 * @param priority [in] : Notification priority, MMGNotificationPrioritySendNow will send immediately, MMGNotificationPrioritySendLater will let Apple decide what's best
+	 * @param notificationId [in] : ID of the notification
 	 * @returns true if send OK
 	 */
-	bool SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId);
+	bool SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration = 0, const MMGNotificationPriority priority = MMGNotificationPriority::MMGNotificationPrioritySendNow);
 };
 
 #endif /* __MMGAPNSCONNECTION_H__ */

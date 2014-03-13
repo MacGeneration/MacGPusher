@@ -73,7 +73,7 @@ bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice
 	return this->SendBuffer((unsigned char*)binaryMessageBuff, (size_t)(binaryMessagePt - binaryMessageBuff));
 }
 
-bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId)
+bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration, const MMGNotificationPriority priority)
 {
 	// https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW2
 	// The new format for a single push payload looks like:
@@ -133,7 +133,7 @@ bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDe
 	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
 	framePtr += sizeof(uint16_t);
 	// Expiration date (0 = expires immediately)
-	const uint32_t expirationDate_n = htonl(0);
+	const uint32_t expirationDate_n = htonl(expiration);
 	memcpy(framePtr, &expirationDate_n, sizeof(uint32_t));
 	framePtr += sizeof(uint32_t);
 
@@ -144,8 +144,7 @@ bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDe
 	memcpy(framePtr, &itemDataLen_n, sizeof(uint16_t));
 	framePtr += sizeof(uint16_t);
 	// Priority (10 = send now)
-	const uint8_t priority = 10;
-	*framePtr++ = priority;
+	*framePtr++ = (uint8_t)priority;
 
 	/*** 2: build payload ***/
 	const size_t frameLength = (size_t)(framePtr - frame);
