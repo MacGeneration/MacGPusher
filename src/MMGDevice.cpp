@@ -36,6 +36,13 @@ MMGDevice::MMGDevice(const std::string& token, const unsigned int badge)
 	this->__CreateBinaryToken();
 }
 
+MMGDevice::MMGDevice(const MMGDevice& device)
+{
+	this->_token = device.GetToken();
+	this->_badge = device.GetBadge();
+	this->__CreateBinaryToken();
+}
+
 void MMGDevice::SetToken(const std::string& token)
 {
 	this->_token = token;
@@ -60,6 +67,11 @@ unsigned int MMGDevice::GetBadge(void)const
 const char* MMGDevice::GetBinaryToken(void)const
 {
 	return this->_binaryToken;
+}
+
+bool operator==(const MMGDevice& d1, const MMGDevice& d2)
+{
+	return (d1.GetToken() == d2.GetToken());
 }
 
 void MMGDevice::__CreateBinaryToken(void)

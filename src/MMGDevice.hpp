@@ -52,6 +52,12 @@ public:
 	MMGDevice(const std::string& token, const unsigned int badge);
 
 	/**
+	 * @brief Create a copy of another device
+	 * @param device [in] : Device
+	 */
+	MMGDevice(const MMGDevice& device);
+
+	/**
 	 * @brief Destructor
 	 */
 	~MMGDevice(void) {}
@@ -85,6 +91,10 @@ public:
 	 * @returns Binary token as a char array
 	 */
 	const char* GetBinaryToken(void)const;
+
+	/**
+	 */
+	friend bool operator==(const MMGDevice& d1, const MMGDevice& d2);
 
 private:
 	/**
