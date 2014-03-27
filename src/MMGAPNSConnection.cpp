@@ -91,7 +91,7 @@ bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDe
 	const size_t payloadLen = strlen(payloadBuffer);
 	
 	/*** 1: build the frame ***/
-	uint8_t frame[1024] = {0x00}; // 1024 is just to let room
+	uint8_t frame[512] = {0x00}; // 512 is just to let room (max length should be 297)
 	uint8_t* framePtr = frame;
 	uint8_t itemId = 1;
 	
