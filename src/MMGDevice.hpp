@@ -42,14 +42,17 @@ private:
 	unsigned int _badge = 0;
 	/// Binary token
 	char _binaryToken[MMG_DEVICE_BINARY_SIZE];
+	/// Device uid (optional)
+	uint32_t _deviceId;
 
 public:
 	/**
 	 * @brief Initialize token and badge number
 	 * @param token [in] : Device token
 	 * @param port [in] : Badge number
+	 * @param deviceId [in] : uid of the device (OPTIONAL)
 	 */
-	MMGDevice(const std::string& token, const unsigned int badge);
+	MMGDevice(const std::string& token, const unsigned int badge, const uint32_t deviceId = 0);
 
 	/**
 	 * @brief Create a copy of another device
@@ -75,6 +78,12 @@ public:
 	void SetBadge(const unsigned int badge);
 
 	/**
+	 * @brief Set device id
+	 * @param deviceId [in] : device id
+	 */
+	void SetDeviceId(const uint32_t deviceId);
+
+	/**
 	 * @brief Get the device token
 	 * @returns Reference to the device token string
 	 */
@@ -85,6 +94,12 @@ public:
 	 * @returns Badge number
 	 */
 	unsigned int GetBadge(void)const;
+
+	/**
+	 * @brief Get the device id
+	 * @returns The device id
+	 */
+	const uint32_t GetDeviceId(void)const {return this->_deviceId;}
 
 	/**
 	 * @brief Get the binary token

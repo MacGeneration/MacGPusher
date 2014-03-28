@@ -29,10 +29,11 @@
 #include <cstring>
 
 
-MMGDevice::MMGDevice(const std::string& token, const unsigned int badge)
+MMGDevice::MMGDevice(const std::string& token, const unsigned int badge, const uint32_t deviceId)
 {
 	this->_token = token;
 	this->_badge = badge;
+	this->_deviceId = deviceId;
 	this->__CreateBinaryToken();
 }
 
@@ -40,6 +41,7 @@ MMGDevice::MMGDevice(const MMGDevice& device)
 {
 	this->_token = device.GetToken();
 	this->_badge = device.GetBadge();
+	this->_deviceId = device.GetDeviceId();
 	this->__CreateBinaryToken();
 }
 
@@ -52,6 +54,11 @@ void MMGDevice::SetToken(const std::string& token)
 void MMGDevice::SetBadge(const unsigned int badge)
 {
 	this->_badge = badge;
+}
+
+void MMGDevice::SetDeviceId(const uint32_t deviceId)
+{
+	this->_deviceId = deviceId;
 }
 
 const std::string& MMGDevice::GetToken(void)const
