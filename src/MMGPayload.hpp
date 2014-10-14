@@ -52,7 +52,7 @@ public:
 	/**
 	 * @brief Destructor
 	 */
-	~MMGPayload(void) {}
+	virtual ~MMGPayload(void) {}
 
 	/**
 	 * @brief Get a reference to the the message body

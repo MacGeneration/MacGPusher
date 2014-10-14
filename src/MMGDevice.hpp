@@ -63,7 +63,7 @@ public:
 	/**
 	 * @brief Destructor
 	 */
-	~MMGDevice(void) {}
+	virtual ~MMGDevice(void) {}
 
 	/**
 	 * @brief Set device token

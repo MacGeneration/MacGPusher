@@ -105,7 +105,7 @@ public:
 	/**
 	 * @brief Destructor: Close the socket and SSL stuff
 	 */
-	~MMGSSLConnection(void);
+	virtual ~MMGSSLConnection(void);
 
 	/**
 	 * @brief Returns the connection status
