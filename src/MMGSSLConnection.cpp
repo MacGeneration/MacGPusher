@@ -33,7 +33,7 @@
 /* SSL_* calls are marked deprecated on OS X 10.7+ */
 #ifdef __APPLE__
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma gcc diagnostic ignored "-Wdeprecated-declarations"
+//#pragma gcc diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
 
