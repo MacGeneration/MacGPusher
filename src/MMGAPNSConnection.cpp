@@ -39,41 +39,7 @@ MMGAPNSConnection::MMGAPNSConnection(const std::string& certsPath, const std::st
 	_sandbox = sandbox;
 }
 
-bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device)
-{
-	const char* payloadBuffer = payload.GetPayload().c_str();
-	const size_t payloadLen = strlen(payloadBuffer);
-	char binaryMessageBuff[sizeof(uint8_t) + sizeof(uint16_t) + MMG_DEVICE_BINARY_SIZE + sizeof(uint16_t) + MMG_MAXPAYLOAD_SIZE];
-
-	// Message format: |COMMAND|TOKENLEN|TOKEN|PAYLOADLEN|PAYLOAD|
-	//                     1        2      32       2        XX
-	char* binaryMessagePt = binaryMessageBuff;
-
-	// Command
-	const uint8_t command = 0; // command number
-	*binaryMessagePt++ = command;
-
-	// Token length network order
-	const uint16_t networkOrderTokenLen = htons(MMG_DEVICE_BINARY_SIZE);
-	memcpy(binaryMessagePt, &networkOrderTokenLen, sizeof(uint16_t));
-	binaryMessagePt += sizeof(uint16_t);
-
-	// Device binary token
-	memcpy(binaryMessagePt, device.GetBinaryToken(), MMG_DEVICE_BINARY_SIZE);
-	binaryMessagePt += MMG_DEVICE_BINARY_SIZE;
-
-	// Payload length network order
-	const uint16_t networkOrderPayloadLen = htons(payloadLen);
-	memcpy(binaryMessagePt, &networkOrderPayloadLen, sizeof(uint16_t));
-	binaryMessagePt += sizeof(uint16_t);
-
-	// Payload
-	memcpy(binaryMessagePt, payloadBuffer, payloadLen);
-	binaryMessagePt += payloadLen;
-	return this->SendBuffer((unsigned char*)binaryMessageBuff, (size_t)(binaryMessagePt - binaryMessageBuff));
-}
-
-bool MMGAPNSConnection::SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration, const MMGNotificationPriority priority)
+bool MMGAPNSConnection::SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration, const MMGNotificationPriority priority)
 {
 	// https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW2
 	// The new format for a single push payload looks like:

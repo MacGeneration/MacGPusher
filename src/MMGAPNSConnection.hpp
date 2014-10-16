@@ -78,14 +78,6 @@ public:
 	~MMGAPNSConnection(void) {}
 
 	/**
-	 * @brief Send a payload to a given device
-	 * @param payload [in] : Payload to send
-	 * @param device [in] : Device
-	 * @returns true if send OK
-	 */
-	bool SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device);
-
-	/**
 	 * @brief Send a payload to a given device, using the last spec from Apple
 	 * @param payload [in] : Payload to send
 	 * @param device [in] : Device
@@ -94,7 +86,7 @@ public:
 	 * @param priority [in] : Notification priority, MMGNotificationPrioritySendNow will send immediately, MMGNotificationPrioritySendLater will let Apple decide what's best
 	 * @returns true if send OK
 	 */
-	bool SendPayloadToDevice_new(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration = 0, const MMGNotificationPriority priority = MMGNotificationPriority::MMGNotificationPrioritySendNow);
+	bool SendPayloadToDevice(MMGPayload& payload, const MMGDevice& device, const uint32_t notificationId, const uint32_t expiration = 0, const MMGNotificationPriority priority = MMGNotificationPriority::MMGNotificationPrioritySendNow);
 
 	/**
 	 * @brief Get a response from the APNS server
