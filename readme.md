@@ -1,6 +1,6 @@
 # MacGPusher #
 
-This is a small C++11 project for interacting with the Apple Push Notification Service (APNS). You can send push notifications to iOS devices or Safari browser (OS X 10.9 only).
+This is a small C++11 project for interacting with the Apple Push Notification Service (APNS). You can send push notifications to iOS devices or Safari browser (OS X 10.9 only). It also handles the Feedback service.
 
 
 ## Installation ##
@@ -33,12 +33,9 @@ If you want to build it by hand :
 
 Look at **main.cpp** to see a very basic example of sending a notification to a single device.
 
+Look at **feedback.cpp** to see how to use the feedback service.
+
 Fetching a list of devices is up to you. I use this project with **libmysqlclient** to fetch a list of *~100k* devices and send the notifications with good performances.
-
-
-## TODO: ##
-
-- Adding support for the Feedback service.
 
 
 ## License ##
