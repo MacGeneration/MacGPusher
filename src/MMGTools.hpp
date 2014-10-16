@@ -106,9 +106,10 @@ public:
 	 * @brief like php's bin2hex, convert binary data into hexadecimal representation
 	 * @param input [in] : Binary input
 	 * @param size [in] : Size of the binary input
+	 * @param lowercase [in] : true if you want lowercase letters
 	 * @returns Hexadecimal representation of the input as a std::string
 	 */
-	static const std::string Bin2Hex(const uint8_t* input, const size_t size);
+	static const std::string Bin2Hex(const uint8_t* input, const size_t size, const bool lowercase = false);
 };
 
 #endif /* __MMGTOOLS_H__ */

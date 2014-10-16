@@ -189,9 +189,9 @@ const std::string MMGTools::Base64Decode(const std::string& encoded_string)
 	return ret;
 }
 
-const std::string MMGTools::Bin2Hex(const uint8_t* input, const size_t size)
+const std::string MMGTools::Bin2Hex(const uint8_t* input, const size_t size, const bool lowercase)
 {
-	static const char hex[] = "0123456789ABCDEF";
+	const char* hex = (lowercase) ? "0123456789abcdef" : "0123456789ABCDEF";
 	std::string res;
 	for (size_t i = 0; i < size; i++)
 	{
