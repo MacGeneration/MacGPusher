@@ -36,7 +36,6 @@
 
 #ifdef __APPLE__
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma gcc diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
 
