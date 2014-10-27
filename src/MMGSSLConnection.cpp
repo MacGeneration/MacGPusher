@@ -52,7 +52,7 @@ MMGSSLConnection::MMGSSLConnection(const std::string& hostname, const unsigned s
 	this->_serverCert = NULL;
 	this->_privateKey = NULL;
 	// Choose a SSL/TLS protocol version
-	this->_sslMethod = (SSL_METHOD*)SSLv3_method();
+	this->_sslMethod = (SSL_METHOD*)TLSv1_method();
 }
 
 MMGSSLConnection::~MMGSSLConnection(void)
