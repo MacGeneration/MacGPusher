@@ -49,7 +49,7 @@ public:
 	/**
 	 * @brief Initialize token and badge number
 	 * @param token [in] : Device token
-	 * @param port [in] : Badge number
+	 * @param badge [in] : Badge number
 	 * @param deviceId [in] : uid of the device (OPTIONAL)
 	 */
 	MMGDevice(const std::string& token, const unsigned int badge, const uint32_t deviceId = 0);
