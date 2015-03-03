@@ -135,7 +135,7 @@ int main(void)
 		// Update payload badge number to reflect device's one
 		payload.SetBadgeNumber(device->GetBadge());
 		// Send payload to the device
-		connection.SendPayloadToDevice_new(payload, *device, notifId++);
+		connection.SendPayloadToDevice(payload, *device, notifId++);
 	}
 
 	// Free up memory
