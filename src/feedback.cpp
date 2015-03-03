@@ -16,7 +16,7 @@ int main(void)
 	SSL_library_init();
 
 	std::vector<MMGDevice*> devices;
-	MMGFeedbackConnection* feedbackConnection = new MMGFeedbackConnection(dbi._capath, dbi._cert, dbi._key, "", false);
+	MMGFeedbackConnection* feedbackConnection = new MMGFeedbackConnection(MMG_APNS_CA_PATH, MMG_APNS_CERT_PATH, MMG_APNS_PRIVATEKEY_PATH, "", false);
 	feedbackConnection->GetExpiredDevicesList(devices);
 	delete feedbackConnection;
 
