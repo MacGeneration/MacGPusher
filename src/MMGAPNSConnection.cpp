@@ -159,7 +159,9 @@ MMGAPNSStatusCode MMGAPNSConnection::GetResponse(uint32_t* notificationId)
 	// Get the status
 	const uint8_t status = buffer[1];
 	// Get the notification ID (don't forget the endianness)
-	*notificationId = htonl(*(uint32_t*)(&(buffer[2])));
+	uint32_t tmp = 0;
+	memcpy(&tmp, &(buffer[2]), 4);
+	*notificationId = (uint32_t)htonl(tmp); //htonl(*(uint32_t*)(&(buffer[2])));
 
 	return static_cast<MMGAPNSStatusCode>(status);
 }
