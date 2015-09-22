@@ -33,6 +33,8 @@
 #define MMG_DEBUG
 //#undef MMG_DEBUG
 
+/* Unused macro */
+#define UNUSED(x) (void)(x)
 
 #ifdef MMG_DEBUG
 #define MMG_DLOG(...) fprintf(stdout, __VA_ARGS__)

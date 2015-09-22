@@ -29,6 +29,7 @@
 #include <cstdio>
 #include <cstring>
 #include <sstream>
+#include "global.hpp"
 
 
 #define INT_DIGITS 19
@@ -36,24 +37,17 @@
 
 int MMGTools::StringToInteger(const std::string& str)
 {
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-value"
-#endif
 	char* s = const_cast<char*>(str.c_str());
 	int res = 0, n = 1;
 	unsigned int c;
 	if (*s == '-')
 	{
 		n = -1;
-		*s++;
+		UNUSED(*s++);
 	}
 	while ((unsigned int)(c = (unsigned int)*s++ - 48) < 10u)
 		res = res * 10 + (int)c;
 	return res * n;
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
 }
 
 unsigned int MMGTools::StringToUnsignedInteger(const std::string& str)
